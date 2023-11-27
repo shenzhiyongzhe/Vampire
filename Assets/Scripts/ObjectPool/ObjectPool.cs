@@ -7,14 +7,8 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     static Dictionary<WeaponData.WeaponName, Queue<GameObject>> poolDict = new();
-
-    [SerializeField] GameObject whip;
-    [SerializeField] GameObject axe;
-    [SerializeField] GameObject bible;
-    [SerializeField] GameObject lightning;
-    [SerializeField] GameObject magicWand;
-    [SerializeField] GameObject fireWand;
-
+    public List<WeaponDict> weaponList;
+  
     const int WeaponNum = 3;
 
     static ObjectPool instance;
@@ -34,16 +28,13 @@ public class ObjectPool : MonoBehaviour
                 switch (name)
                 {
                     case WeaponData.WeaponName.Whip:
-                        Queue<GameObject> whipQueue = GenerateQueue(whip, WeaponData.WeaponName.Whip);
-                        poolDict.Add(WeaponData.WeaponName.Whip, whipQueue);
+                        AddObjToQueue(weaponList[0].weaponPrefab, name);
                         break;
                     case WeaponData.WeaponName.Axe:
-                        Queue<GameObject> axeQueue = GenerateQueue(axe, WeaponData.WeaponName.Axe);
-                        poolDict.Add(WeaponData.WeaponName.Axe, axeQueue);
+                        AddObjToQueue(weaponList[1].weaponPrefab, name);
                         break;
                     case WeaponData.WeaponName.Bible:
-                        Queue<GameObject> bibleQueue = GenerateQueue(bible, WeaponData.WeaponName.Bible);
-                        poolDict.Add(WeaponData.WeaponName.Bible, bibleQueue);
+                        AddObjToQueue (weaponList[2].weaponPrefab, name);
                         break;
                     case WeaponData.WeaponName.Lightning:
                         break;
@@ -60,26 +51,28 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    private Queue<GameObject> GenerateQueue(GameObject obj, WeaponData.WeaponName weaponName)
+    void ShowInspector()
+    {
+        //for(int i = 0; i < weaponList.Length; i++)
+        //{
+
+        //}
+    }
+    private void AddObjToQueue(GameObject obj, WeaponData.WeaponName weaponName)
     {
         GameObject spawedObj = CreateObject(obj);
         spawedObj.SetActive(false);
-        if (poolDict[weaponName] == null)
-        {
-            Debug.Log("do not have that key");
-            return null;
-        }
-        if (poolDict[weaponName].Count > 0)
-        {
-            poolDict[weaponName].Enqueue(spawedObj);
-            return poolDict[weaponName];
-        }
-        else
+        if (!poolDict.ContainsKey(weaponName))
         {
             Queue<GameObject> queue = new();
             queue.Enqueue(spawedObj);
-            return queue;   
+            poolDict.Add(weaponName, queue);
         }
+        else 
+        {
+            poolDict[weaponName].Enqueue(spawedObj);
+        }
+
     }
     private GameObject CreateObject(GameObject obj)
     {
@@ -89,13 +82,19 @@ public class ObjectPool : MonoBehaviour
     public static GameObject GetObject(WeaponData.WeaponName objName)
     {
         Queue<GameObject> objQueue = poolDict[objName];
-        if (objQueue.Count > 0)
+        if (poolDict.ContainsKey(objName))
         {
             return objQueue.Dequeue();
         }
         else
         {
-            return instance.CreateObject(instance.bible);
+            WeaponData .WeaponName name 
+            GameObject obj =  instance.CreateObject(instance.axe);
+            obj.SetActive(false);
+            Queue<GameObject> queue = new();
+            queue.Enqueue(obj);
+            poolDict.Add(objName, queue);
+            return obj;
                  
         }
     }
@@ -105,4 +104,11 @@ public class ObjectPool : MonoBehaviour
         Queue<GameObject> objQueue = poolDict[objName];
         objQueue.Enqueue(obj);
     }
+}
+
+[System.Serializable]
+public struct WeaponDict
+{
+    public WeaponData.WeaponName weaponName;
+    public GameObject weaponPrefab;
 }

@@ -38,6 +38,7 @@ public class BibleSpawner : MonoBehaviour
             {
                 obj.SetActive(false);   
                 ObjectPool.ReturnObject(WeaponData.WeaponName.Bible, obj);
+                Debug.Log("enqueue");
             }
         }
     }
