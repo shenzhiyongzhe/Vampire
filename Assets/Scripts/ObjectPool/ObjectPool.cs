@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -9,7 +10,7 @@ public class ObjectPool : MonoBehaviour
     static Dictionary<WeaponData.WeaponName, Queue<GameObject>> poolDict = new();
     public List<WeaponDict> weaponList;
   
-    const int WeaponNum = 3;
+    const int WeaponNum = 5;
 
     static ObjectPool instance;
 
@@ -88,14 +89,10 @@ public class ObjectPool : MonoBehaviour
         }
         else
         {
-            WeaponData .WeaponName name 
-            GameObject obj =  instance.CreateObject(instance.axe);
-            obj.SetActive(false);
-            Queue<GameObject> queue = new();
-            queue.Enqueue(obj);
-            poolDict.Add(objName, queue);
-            return obj;
-                 
+            var wpList = from weapon in instance.weaponList where weapon.weaponName == objName select weapon;
+            GameObject obj = instance.CreateObject(wpList.ToArray()[0].weaponPrefab);
+
+            return obj;  
         }
     }
 

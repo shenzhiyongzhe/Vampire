@@ -8,6 +8,7 @@ public class BibleSpawner : MonoBehaviour
     [SerializeField] GameObject biblePrefab;
     [SerializeField] WeaponData weaponData;
     [SerializeField] int spawnNumber;
+    [SerializeField] float radius;
     int attackPower;
     float attackSpeed;
     float inactiveDelay;
@@ -30,7 +31,9 @@ public class BibleSpawner : MonoBehaviour
             for(int i = 0; i < spawnNumber; i++)
             {
                 GameObject obj = ObjectPool.GetObject(WeaponData.WeaponName.Bible);
-                obj.SetActive(true);      
+                obj.transform.position = new Vector3(Mathf.Cos(360 / spawnNumber * i)* radius, Mathf.Sin(360 / spawnNumber * i)* radius, 0);
+                obj.SetActive(true);
+                obj.transform.SetParent(transform, false);
                 spawnedQuene.Enqueue(obj);
             }
             yield return new WaitForSeconds(inactiveDelay);
