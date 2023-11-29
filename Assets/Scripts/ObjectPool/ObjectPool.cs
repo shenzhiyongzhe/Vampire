@@ -10,10 +10,13 @@ public class ObjectPool : MonoBehaviour
     static Dictionary<WeaponData.WeaponName, Queue<GameObject>> poolDict = new();
     public List<WeaponDict> weaponList;
   
-    const int WeaponNum = 5;
+    const int WeaponNum = 10;
 
     static ObjectPool instance;
 
+    [SerializeField] Transform whipSpawner;
+    [SerializeField] Transform axeSpawner;
+    [SerializeField] Transform bibleSpawner;
     private void Awake()
     {
         instance = this;
@@ -29,13 +32,13 @@ public class ObjectPool : MonoBehaviour
                 switch (name)
                 {
                     case WeaponData.WeaponName.Whip:
-                        AddObjToQueue(weaponList[0].weaponPrefab, name);
+                        AddObjToQueue(weaponList[0].weaponPrefab, name, whipSpawner);
                         break;
                     case WeaponData.WeaponName.Axe:
-                        AddObjToQueue(weaponList[1].weaponPrefab, name);
+                        AddObjToQueue(weaponList[1].weaponPrefab, name, axeSpawner);
                         break;
                     case WeaponData.WeaponName.Bible:
-                        AddObjToQueue (weaponList[2].weaponPrefab, name);
+                        AddObjToQueue (weaponList[2].weaponPrefab, name, bibleSpawner);
                         break;
                     case WeaponData.WeaponName.Lightning:
                         break;
@@ -46,7 +49,6 @@ public class ObjectPool : MonoBehaviour
                     default:
                         break;
                 }
-                Debug.Log(name);
             }
             
         }
@@ -59,9 +61,9 @@ public class ObjectPool : MonoBehaviour
 
         //}
     }
-    private void AddObjToQueue(GameObject obj, WeaponData.WeaponName weaponName)
+    private void AddObjToQueue(GameObject obj, WeaponData.WeaponName weaponName, Transform objParent)
     {
-        GameObject spawedObj = CreateObject(obj);
+        GameObject spawedObj = CreateObject(obj, objParent);
         spawedObj.SetActive(false);
         if (!poolDict.ContainsKey(weaponName))
         {
@@ -75,12 +77,12 @@ public class ObjectPool : MonoBehaviour
         }
 
     }
-    private GameObject CreateObject(GameObject obj)
+    private GameObject CreateObject(GameObject obj, Transform objParent)
     {
-        return Instantiate(obj);
+        return Instantiate(obj, objParent);
     }
 
-    public static GameObject GetObject(WeaponData.WeaponName objName)
+    public static GameObject GetObject(WeaponData.WeaponName objName, Transform objParent)
     {
         Queue<GameObject> objQueue = poolDict[objName];
         if (poolDict.ContainsKey(objName))
@@ -90,7 +92,7 @@ public class ObjectPool : MonoBehaviour
         else
         {
             var wpList = from weapon in instance.weaponList where weapon.weaponName == objName select weapon;
-            GameObject obj = instance.CreateObject(wpList.ToArray()[0].weaponPrefab);
+            GameObject obj = instance.CreateObject(wpList.ToArray()[0].weaponPrefab, objParent);
 
             return obj;  
         }

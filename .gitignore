@@ -1,0 +1,15 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs
+/.vsconfig
+/Assembly-CSharp.csproj
+/Library
+/Logs
+/obj
+/Packages
+/ProjectSettings
+/Temp
+/UserSettings
+/Vampire_Survivors1.0.sln

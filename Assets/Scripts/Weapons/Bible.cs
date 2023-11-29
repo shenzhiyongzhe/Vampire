@@ -2,18 +2,16 @@ using UnityEngine;
 
 public class Bible : MonoBehaviour
 {
-    [SerializeField] float radius;
-    float arc;
-    Vector3 pos;
-
+    [SerializeField] float speed;
+    private Transform playerPos;
     private void Start()
     {
-        pos = transform.position;
+        playerPos = GameObject.FindWithTag("Player").transform;
     }
     private void Update()
     {
-        arc += Time.deltaTime;
-        pos = new Vector3(Mathf.Cos(arc) * radius, Mathf.Sin(arc) * radius, transform.position.z);
-        transform.position = pos;
+        transform.RotateAround(playerPos.position, Vector3.forward, speed * Time.deltaTime);
+        transform.Rotate(new Vector3(0, 0, -1), speed * Time.deltaTime);
     }
+
 }

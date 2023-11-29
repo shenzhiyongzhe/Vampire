@@ -9,12 +9,15 @@ namespace Assets.Scripts.Weapons
         // Use this for initialization
         void Start()
         {
-
+            for(int i = 0; i < 10; i++)
+            {
+                SpawnAxe();
+            }
         }
         
         void SpawnAxe()
         {
-            GameObject obj = ObjectPool.GetObject(WeaponData.WeaponName.Axe);
+            GameObject obj = ObjectPool.GetObject(WeaponData.WeaponName.Axe, transform);
             obj.SetActive(true);
         }
     }

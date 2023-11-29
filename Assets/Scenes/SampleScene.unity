@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 64361184}
   - component: {fileID: 64361187}
   - component: {fileID: 64361188}
+  - component: {fileID: 64361189}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -294,6 +295,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &64361189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64361182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f285bcbd4a49d140ac2b4b60e8b1c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  lastDirection: {x: 0, y: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +396,60 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &656469973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 656469975}
+  - component: {fileID: 656469974}
+  m_Layer: 0
+  m_Name: ObjectPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &656469974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656469973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b7d846aeab62b44a48dce46b5c1684, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponList:
+  - weaponName: 0
+    weaponPrefab: {fileID: 1260985219913093021, guid: 2fac976c2574cba459a3dbba3e557e9f, type: 3}
+  - weaponName: 1
+    weaponPrefab: {fileID: 3724661763180761073, guid: 097f7a7e7b2a61b4b9e14eb32db8cfdf, type: 3}
+  - weaponName: 2
+    weaponPrefab: {fileID: 2015018844001028393, guid: 500eab5b68a14394eb8d3cdb1f66f11b, type: 3}
+  whipSpawner: {fileID: 1810654860}
+  axeSpawner: {fileID: 1797509850}
+  bibleSpawner: {fileID: 1576758875}
+--- !u!4 &656469975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656469973}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1557823, y: -3.0838096, z: -0.88581}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -497,7 +566,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   biblePrefab: {fileID: 2015018844001028393, guid: 500eab5b68a14394eb8d3cdb1f66f11b, type: 3}
   weaponData: {fileID: 11400000, guid: 6732e435673cc3b448bdd72bfa7933f6, type: 2}
-  spawnNumber: 5
+  spawnNumber: 6
+  radius: 3
+--- !u!1 &1797509849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1797509850}
+  - component: {fileID: 1797509851}
+  m_Layer: 7
+  m_Name: Axe Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1797509850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797509849}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806960689}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1797509851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797509849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e8ce147d2b3de4186f998e781fa3c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axePrefab: {fileID: 3724661763180761073, guid: 097f7a7e7b2a61b4b9e14eb32db8cfdf, type: 3}
 --- !u!4 &1805817521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5315419997323608177, guid: 467da14c1d6cb1041ae822be1ddc75d5, type: 3}
@@ -533,6 +648,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1810654860}
+  - {fileID: 1797509850}
   - {fileID: 1576758875}
   m_Father: {fileID: 64361186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -546,7 +662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810654860}
   m_Layer: 7
-  m_Name: KnifeController
+  m_Name: Whip Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -660,3 +776,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 64361186}
   - {fileID: 7307609419208867742}
+  - {fileID: 656469975}
