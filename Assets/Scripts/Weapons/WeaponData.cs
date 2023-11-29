@@ -18,7 +18,9 @@ public class WeaponData : ScriptableObject
     [SerializeField] Parent _parent;
     [SerializeField] int _attackPower;
     [SerializeField] float _attackSpeed;
-    [SerializeField] float _inactiveDelay;
+    [SerializeField] float _attackRange;
+    [SerializeField] float _cooldownTime;
+    [SerializeField] float _lastTime;
     [SerializeField] Sprite _weaponSprite;
     [SerializeField] string _description;
 
@@ -26,7 +28,9 @@ public class WeaponData : ScriptableObject
     public Parent GetParent => _parent;
     public int AttackPower => _attackPower;
     public float AttackSpeed => _attackSpeed;
-    public float InactiveDelay => _inactiveDelay;
+    public float AttackRange => _attackRange;
+    public float CooldownTime => _cooldownTime;
+    public float LastTime => _lastTime;
     public Sprite WeaponSprite => _weaponSprite;
     public string Description => _description;
 }
