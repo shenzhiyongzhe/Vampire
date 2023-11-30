@@ -1,24 +1,21 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Weapons
+
+public class AxeSpawner : WeaponSpawner
 {
-    public class AxeSpawner : MonoBehaviour
+    [SerializeField] WeaponData weaponData;
+    WeaponData.WeaponName weaponName;
+    [SerializeField] int weaponNumber;
+    [SerializeField] float attackRange;
+    [SerializeField] float lastTime;
+    [SerializeField] float cooldownTime;
+
+    private void Start()
     {
-        [SerializeField] GameObject axePrefab;
-        // Use this for initialization
-        void Start()
-        {
-            for(int i = 0; i < 10; i++)
-            {
-                SpawnAxe();
-            }
-        }
+        weaponName = weaponData.Name;
+        StartCoroutine(Attack(weaponName, weaponNumber, attackRange, lastTime, cooldownTime));
         
-        void SpawnAxe()
-        {
-            GameObject obj = ObjectPool.GetObject(WeaponData.WeaponName.Axe, transform);
-            obj.SetActive(true);
-        }
     }
+
 }

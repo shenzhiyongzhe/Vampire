@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class WeaponSpawner : MonoBehaviour
 {
-    WeaponData weaponData;
-    WeaponData.WeaponName weaponName;
-    float attackRange;
-    float lastTime;
-    float cooldownTime;
-    protected virtual void Start()
-    {
-        weaponName = weaponData.Name;
-        attackRange = weaponData.AttackRange;
-        lastTime = weaponData.LastTime;
-        cooldownTime = weaponData.CooldownTime;
-    }
+    //WeaponData weaponData;
+    //WeaponData.WeaponName weaponName;
+    //float attackRange;
+    //float lastTime;
+    //float cooldownTime;
+    //protected virtual void Start()
+    //{
+    //    weaponName = weaponData.Name;
+    //    attackRange = weaponData.AttackRange;
+    //    lastTime = weaponData.LastTime;
+    //    cooldownTime = weaponData.CooldownTime;
+    //}
 
-    protected IEnumerator Attack(int weaponNumber, float attackRange, float lastTime, float cooldownTime)
+    protected IEnumerator Attack(WeaponData.WeaponName weaponName, int weaponNumber, float attackRange, float lastTime, float cooldownTime)
     {
         while (true)
         {

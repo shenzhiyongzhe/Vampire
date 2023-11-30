@@ -1,14 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform target;
+    Transform target;
+    private void Start()
+    {
+        target = PlayerMove.GetInstance().transform;
+    }
 
     void Update()
     {
-        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+        if (target != null) {
+            transform.position = new Vector3(target.position.x, target.position.y, -10);
+        }
+
     }
 }

@@ -12,7 +12,7 @@ public class Axe : MonoBehaviour
     private void Start()
     {
         rb.AddForce(new Vector2(15,15));
-
+        transform.SetParent(null);
     }
 
 }

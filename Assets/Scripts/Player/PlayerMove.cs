@@ -9,16 +9,21 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     public float moveSpeed;
+
     Vector3 move;
     public Vector3 moveDirection => move;
     public Vector2 lastDirection;
-    // Start is called before the first frame update
+
+    private static PlayerMove instance;
+
+
     void Awake()
     {
         inputController = new InputController();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         lastDirection = Vector2.right;
+        instance = this;
     }
 
     // Update is called once per frame
@@ -52,4 +57,10 @@ public class PlayerMove : MonoBehaviour
     {
         inputController.Player.Disable(); 
     }
+
+    public static PlayerMove GetInstance()
+    {
+        return instance;
+    }
+
 }
