@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e930eff1da31b0343b562b7642037ea0, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  _weaponName: 0
+  _weaponName: 1
   _parent: 0
-  _attackPower: 0
-  _attackSpeed: 0
-  _attackRange: 0
-  _cooldownTime: 0
-  _lastTime: 0
-  _weaponSprite: {fileID: 0}
+  _attackPower: 1
+  _attackSpeed: 1
+  _attackRange: 3
+  _cooldownTime: 3
+  _lastTime: 3
+  _weaponSprite: {fileID: 21300000, guid: 62ba0b67fc9c59f45bd1039ed468b705, type: 3}
   _description: 

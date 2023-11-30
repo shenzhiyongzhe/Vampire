@@ -1,8 +1,11 @@
+using TMPro;
 using UnityEngine;
 
 public class Bible : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] int attackDamage;
+    [SerializeField] GameObject TMP_damagePoint;
     private Transform playerPos;
     private void Start()
     {
@@ -14,4 +17,14 @@ public class Bible : MonoBehaviour
         transform.Rotate(new Vector3(0, 0, -1), speed * Time.deltaTime);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            GameObject obj = Instantiate(TMP_damagePoint, collision.transform.position + Vector3.up, Quaternion.identity);
+            obj.GetComponent<TextMeshPro>().text = attackDamage.ToString();
+            Destroy(obj, 1);
+            //Debug.Log("catch you");
+        }
+    }
 }

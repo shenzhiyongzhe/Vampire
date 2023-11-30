@@ -3,7 +3,8 @@ guid: a397b49314db50940834af8a0a968e64
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - TMP_damagePoint: {fileID: 5993609579732970562, guid: 4eaf63d68605fb64ab3b5f18eaf7b94d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

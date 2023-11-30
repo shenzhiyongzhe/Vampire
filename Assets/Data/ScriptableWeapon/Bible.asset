@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Bible
   m_EditorClassIdentifier: 
   _weaponName: 2
-  _parent: 0
+  _parent: 1
   _attackPower: 3
   _attackSpeed: 3
-  _inactiveDelay: 3
+  _attackRange: 3
+  _cooldownTime: 3
+  _lastTime: 3
   _weaponSprite: {fileID: 21300000, guid: 1dea3177f708da443ba74b332fc8221b, type: 3}
   _description: "\u56F4\u7ED5\u81EA\u8EAB\u65CB\u8F6C\uFF0C\u6301\u7EED\u4E00\u6BB5\u65F6\u95F4\uFF0C\u53EF\u589E\u52A0\u4E66\u7684\u6570\u91CF"
