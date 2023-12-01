@@ -1,7 +1,7 @@
-using Unity.VisualScripting;
+using Assets.Scripts.Weapons;
 using UnityEngine;
 
-public class Axe : MonoBehaviour
+public class Axe : Weapon
 {
     [SerializeField] float speed;
     Rigidbody2D rb;

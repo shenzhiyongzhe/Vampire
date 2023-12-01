@@ -1,7 +1,8 @@
+using Assets.Scripts.Weapons;
 using TMPro;
 using UnityEngine;
 
-public class Bible : MonoBehaviour
+public class Bible : Weapon
 {
     [SerializeField] float speed;
     [SerializeField] int attackDamage;

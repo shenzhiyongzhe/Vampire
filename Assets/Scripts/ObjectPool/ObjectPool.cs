@@ -32,13 +32,13 @@ public class ObjectPool : MonoBehaviour
                 switch (name)
                 {
                     case WeaponData.WeaponName.Whip:
-                        AddObjToQueue(weaponList[0].weaponPrefab, name, whipSpawner);
+                        InitQueue(weaponList[0].weaponPrefab, name, whipSpawner);
                         break;
                     case WeaponData.WeaponName.Axe:
-                        AddObjToQueue(weaponList[1].weaponPrefab, name, axeSpawner);
+                        InitQueue(weaponList[1].weaponPrefab, name, axeSpawner);
                         break;
                     case WeaponData.WeaponName.Bible:
-                        AddObjToQueue (weaponList[2].weaponPrefab, name, bibleSpawner);
+                        InitQueue (weaponList[2].weaponPrefab, name, bibleSpawner);
                         break;
                     case WeaponData.WeaponName.Lightning:
                         break;
@@ -54,14 +54,8 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    void ShowInspector()
-    {
-        //for(int i = 0; i < weaponList.Length; i++)
-        //{
 
-        //}
-    }
-    private void AddObjToQueue(GameObject obj, WeaponData.WeaponName weaponName, Transform objParent)
+    private void InitQueue(GameObject obj, WeaponData.WeaponName weaponName, Transform objParent)
     {
         GameObject spawedObj = CreateObject(obj, objParent);
         spawedObj.SetActive(false);
@@ -85,7 +79,7 @@ public class ObjectPool : MonoBehaviour
     public static GameObject GetObject(WeaponData.WeaponName objName, Transform objParent)
     {
         Queue<GameObject> objQueue = poolDict[objName];
-        if (poolDict.ContainsKey(objName))
+        if (poolDict.ContainsKey(objName) && poolDict[objName].Count > 0)
         {
             return objQueue.Dequeue();
         }
@@ -100,8 +94,16 @@ public class ObjectPool : MonoBehaviour
 
     public static void ReturnObject(WeaponData.WeaponName objName, GameObject obj)
     {
-        Queue<GameObject> objQueue = poolDict[objName];
-        objQueue.Enqueue(obj);
+        if (poolDict.ContainsKey(objName))
+        {
+            poolDict[objName].Enqueue(obj);
+        }
+        else if(!poolDict.ContainsKey(objName))
+        {
+            Queue<GameObject> objQueue = poolDict[objName];
+            poolDict.Add(objName, objQueue);
+        }
+        
     }
 }
 
