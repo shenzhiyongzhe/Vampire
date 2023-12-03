@@ -3,15 +3,23 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] WeaponData weaponData;
+    WeaponData weaponData;
     float _attackSpeed;
-    int _attackPower;
+    public int attackPower;
+    protected float cooldownTime;
+    float lastTime;
     public float AttackSpeed => _attackSpeed;
-    public int AttackPower => _attackPower;
 
-    private void Awake()
+    void OnEnable()
     {
-        _attackSpeed = weaponData.AttackSpeed;
+        StartCoroutine(StartDestroy());
+    }
+ 
+    public void SetParameters(WeaponData weaponData, int attackPower, float cooldownTime)
+    {
+        this.weaponData = weaponData;
+        this.attackPower = attackPower;
+        this.cooldownTime = cooldownTime;
     }
     //IEnumerator 
 
@@ -19,7 +27,19 @@ public class Weapon : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            collision.GetComponent<Enemy>().GetHurt(_attackPower);
-            }
+            collision.GetComponent<Enemy>().GetHurt(attackPower);
+        }
     }
+    protected virtual IEnumerator StartDestroy()
+    {
+        yield return new WaitForSeconds(3);
+
+        InactivateWeapon();
+    }
+    protected void InactivateWeapon()
+    {
+        ObjectPool.ReturnObject(WeaponData.WeaponType.Bible, this.gameObject);
+        this.gameObject.SetActive(false);
+    }
+
 }

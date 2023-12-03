@@ -56,7 +56,6 @@ public class ObjectPool : MonoBehaviour
             }
 
             poolDict.Add(characterType.ToString(), newQue);
-            Debug.Log(characterType.ToString());
         }
 
         foreach (WeaponData.WeaponType weaponType in Enum.GetValues(typeof(WeaponData.WeaponType)))

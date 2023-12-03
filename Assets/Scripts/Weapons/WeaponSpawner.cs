@@ -4,50 +4,38 @@ using UnityEngine;
 
 public class WeaponSpawner : MonoBehaviour
 {
-    //[SerializeField] protected WeaponData weaponData;
-    //WeaponData.WeaponName weaponName;
-    //float attackRange;
-    //float lastTime;
-    //float cooldownTime;
-    //int weaponNum;
-    //void Awake()
-    //{
-    //    Initialize(weaponData);
-    //}
+    [SerializeField] protected WeaponData weaponData;
+    int level;
+    int attackPower;
+    float attackSpeed;
+    int finalAttackPower;
+    float finalAttackSpeed;
+    float cooldownTime;
+    float additionalScale;
+    Sprite weaponIcon;
 
-    //void Initialize(WeaponData weaponData)
-    //{
-    //    this.weaponData = weaponData;
-    //}
-    //protected void SetParameters(WeaponData weaponData)
-    //{
-    //    weaponName = weaponData.Name;
-    //    attackRange = weaponData.AttackRange;
-    //    lastTime = weaponData.LastTime;
-    //    cooldownTime = weaponData.CooldownTime;
-    //    weaponNum = weaponData.WeaponNum;
-    //}
 
-    protected GameObject SpawnWeapon(WeaponData weaponData)
-    {  
-
-        GameObject obj = ObjectPool.GetObject(weaponData.Name);
-        return obj;
-        //obj.transform.SetParent(this.transform);
-        //obj.SetActive(true);
-        //obj.transform.position = new Vector3(Mathf.Cos(2 * Mathf.PI / weaponData.WeaponNum * i) * weaponData.AttackRange,
-        //    Mathf.Sin(2 * Mathf.PI / weaponData.WeaponNum * i) * weaponData.AttackRange, 0) + transform.position;
-        //StartCoroutine(SetInactive(obj, weaponData.LastTime, weaponData.Name));
-            //obj.GetComponent<Weapon>().SetParameters(weaponData.Name, weaponData.LastTime, weaponData.CooldownTime);
-        
-  
-    }
-
-    protected IEnumerator SetInactive(GameObject obj, float lastTime, WeaponData.WeaponType weaponName)
+    public WeaponData.WeaponType WeaponName => weaponData.Name; 
+    void Awake()
     {
-        yield return new WaitForSeconds(lastTime);
-        ObjectPool.ReturnObject(weaponName, obj);
-        obj.SetActive(false);
+        Initialize();
     }
 
+
+    protected void Initialize()
+    {
+        weaponIcon = weaponData.WeaponSprite;
+        attackPower = weaponData.AttackPower;
+        attackSpeed = weaponData.AttackSpeed;
+        cooldownTime = weaponData.CooldownTime;
+        level = 1;
+        additionalScale = 100f;
+    }
+
+    public void SpawnWeapon()
+    {
+        GameObject weapon = ObjectPool.GetObject(WeaponName);
+        weapon.GetComponent<Weapon>().SetParameters(weaponData, attackPower, cooldownTime);
+        weapon.SetActive(true);
+    }
 }

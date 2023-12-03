@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Character;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -37,6 +38,13 @@ public class Enemy : Character
         }
 
     }
+
+    public override void GetHurt(int damage)
+    {
+        base.GetHurt(damage);
+        //StartCoroutine(FloatingDamage(damage));
+        FloatingDamage(damage);
+    }
     public override void Die()
     {
         ObjectPool.ReturnObject(GetCharacterType(), gameObject);
@@ -54,5 +62,9 @@ public class Enemy : Character
         rectTransform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, rectTransform.position.z);
 
         damageText.SetActive(true);
+        //yield return new WaitForSeconds(0.2f);
+        
+        ObjectPool.ReturnObject("damage", damageText);
     }
+
 }
