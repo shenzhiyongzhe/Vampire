@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8467699835192309700}
   - component: {fileID: 5650235657656461256}
   - component: {fileID: 6354817251737994262}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,9 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a397b49314db50940834af8a0a968e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
-  attackDamage: 33
-  TMP_damagePoint: {fileID: 5993609579732970562, guid: 4eaf63d68605fb64ab3b5f18eaf7b94d, type: 3}
+  weaponData: {fileID: 11400000, guid: 6732e435673cc3b448bdd72bfa7933f6, type: 2}
 --- !u!61 &6354817251737994262
 BoxCollider2D:
   m_ObjectHideFlags: 0

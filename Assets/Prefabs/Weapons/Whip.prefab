@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1820258201528152050}
   - component: {fileID: 4943357991791578882}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Whip
   m_TagString: Untagged
   m_Icon: {fileID: 0}

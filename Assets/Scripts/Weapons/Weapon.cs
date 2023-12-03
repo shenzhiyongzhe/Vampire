@@ -1,34 +1,25 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Weapons
+public class Weapon : MonoBehaviour
 {
-    public class Weapon : MonoBehaviour
+    [SerializeField] WeaponData weaponData;
+    float _attackSpeed;
+    int _attackPower;
+    public float AttackSpeed => _attackSpeed;
+    public int AttackPower => _attackPower;
+
+    private void Awake()
     {
-        WeaponData weaponData;
-        WeaponData.WeaponName weaponName;
-        float attackRange;
-        float lastTime;
-        float cooldownTime;
+        _attackSpeed = weaponData.AttackSpeed;
+    }
+    //IEnumerator 
 
-        void OnEnable()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
         {
-            StartCoroutine(SetInactive());
-        }
-
-        public void SetParameters(WeaponData.WeaponName weaponName, float lastTime, float cooldownTime)
-        {
-            this.weaponName = weaponName;
-            this.lastTime = lastTime;
-            this.cooldownTime = cooldownTime;
-            
-        }
-
-        IEnumerator SetInactive()
-        {
-            yield return new WaitForSeconds(cooldownTime);
-            ObjectPool.ReturnObject(weaponName, gameObject);
-
-        }
+            collision.GetComponent<Enemy>().GetHurt(_attackPower);
+            }
     }
 }

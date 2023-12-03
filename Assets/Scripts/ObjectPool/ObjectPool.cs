@@ -1,22 +1,41 @@
-﻿using System;
+﻿using Assets.Scripts;
+using Assets.Scripts.Character;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Assets.Scripts.Character.CharacterData;
 
 
 public class ObjectPool : MonoBehaviour
 {
-    static Dictionary<WeaponData.WeaponName, Queue<GameObject>> poolDict = new();
-    public List<WeaponDict> weaponList;
+    private Dictionary<string, Queue<GameObject>> poolDict = new();
+    
   
     const int WeaponNum = 10;
+    const int EnemyNum = 10;
+    const int damageTxtNum = 10;
 
     static ObjectPool instance;
 
-    [SerializeField] Transform whipSpawner;
-    [SerializeField] Transform axeSpawner;
-    [SerializeField] Transform bibleSpawner;
+    [SerializeField] GameObject flyingEyePrefab;
+    //[SerializeField] GameObject goblinPrefab;
+    [SerializeField] GameObject mushroomPrefab;
+    //[SerializeField] GameObject skeletonPrefab;
+
+    [SerializeField] GameObject whipPrefab;
+    [SerializeField] GameObject biblePrefab;
+    //[SerializeField] GameObject axePrefab;
+    //[SerializeField] GameObject pigeonPrefab;
+    //[SerializeField] GameObject lightningPrefab;
+    //[SerializeField] GameObject magicWandPrefab;
+
+    //[SerializeField] GameObject blueCrystalPrefab;
+    //[SerializeField] GameObject greenCrystalPrefab;
+    //[SerializeField] GameObject redCrystalPrefab;
+
+    [SerializeField] GameObject DamageText;
     private void Awake()
     {
         instance = this;
@@ -24,92 +43,120 @@ public class ObjectPool : MonoBehaviour
     }
 
     void Initialize()
-    {   
-        for (int i = 0; i < WeaponNum; i++)
+    {
+        foreach (CharacterData.CharacterType characterType in Enum.GetValues(typeof(CharacterData.CharacterType)))
         {
-            foreach(WeaponData.WeaponName name in Enum.GetValues(typeof(WeaponData.WeaponName)))
+            if (IsPlayer(characterType)) continue;
+
+            Queue<GameObject> newQue = new Queue<GameObject>();
+
+            for (int j = 0; j < EnemyNum; j++)
             {
-                switch (name)
-                {
-                    case WeaponData.WeaponName.Whip:
-                        InitQueue(weaponList[0].weaponPrefab, name, whipSpawner);
-                        break;
-                    case WeaponData.WeaponName.Axe:
-                        InitQueue(weaponList[1].weaponPrefab, name, axeSpawner);
-                        break;
-                    case WeaponData.WeaponName.Bible:
-                        InitQueue (weaponList[2].weaponPrefab, name, bibleSpawner);
-                        break;
-                    case WeaponData.WeaponName.Lightning:
-                        break;
-                    case WeaponData.WeaponName.MagicWand:
-                        break;
-                    case WeaponData.WeaponName.FireWand:
-                        break;
-                    default:
-                        break;
-                }
+                newQue.Enqueue(CreateObject(characterType));
             }
-            
+
+            poolDict.Add(characterType.ToString(), newQue);
+            Debug.Log(characterType.ToString());
         }
+
+        foreach (WeaponData.WeaponType weaponType in Enum.GetValues(typeof(WeaponData.WeaponType)))
+        {
+            Queue<GameObject> newQue = new Queue<GameObject>();
+
+            for (int j = 0; j < WeaponNum; j++)
+            {
+                newQue.Enqueue(CreateObject(weaponType));
+            }
+
+            poolDict.Add(weaponType.ToString(), newQue);
+            Debug.Log(weaponType.ToString());
+
+        }
+
+        Queue<GameObject> damageQue = new Queue<GameObject>();
+
+        for (int j = 0; j < damageTxtNum; j++)
+        {
+            damageQue.Enqueue(CreateObject("damage"));
+        }
+
+        poolDict.Add("damage", damageQue);
+
     }
 
 
-    private void InitQueue(GameObject obj, WeaponData.WeaponName weaponName, Transform objParent)
+
+    private static GameObject CreateObject<T>(T type)
     {
-        GameObject spawedObj = CreateObject(obj, objParent);
-        spawedObj.SetActive(false);
-        if (!poolDict.ContainsKey(weaponName))
+        GameObject newObject;
+        switch (type)
         {
-            Queue<GameObject> queue = new();
-            queue.Enqueue(spawedObj);
-            poolDict.Add(weaponName, queue);
+            case CharacterData.CharacterType.FlyingEye:
+                newObject = Instantiate(instance.flyingEyePrefab);
+                break;
+            //case CharacterData.CharacterType.Goblin:
+            //    newObject = Instantiate(instance.goblinPrefab);
+            //    break;
+            case CharacterData.CharacterType.Mushroom:
+                newObject = Instantiate(instance.mushroomPrefab);
+                break;
+            //case CharacterData.CharacterType.Skeleton:
+            //    newObject = Instantiate(instance.skeletonPrefab);
+            //    break;
+
+            //case WeaponData.WeaponType.Whip:
+            //    newObject = Instantiate(instance.whipPrefab);
+            //    break;
+            case WeaponData.WeaponType.Bible:
+                newObject = Instantiate(instance.biblePrefab);
+                break;
+
+            case "damage":
+                newObject = Instantiate(instance.DamageText); break;
+            default:newObject = null;
+                break;
         }
+        newObject.SetActive(false);
+        return newObject;
+    }
+
+    public static GameObject GetObject<T>(T type)
+    {
+        if (instance.poolDict[type.ToString()].Count > 0)
+            return instance.poolDict[type.ToString()].Dequeue();
         else 
-        {
-            poolDict[weaponName].Enqueue(spawedObj);
-        }
-
-    }
-    private GameObject CreateObject(GameObject obj, Transform objParent)
-    {
-        return Instantiate(obj, objParent);
+            return CreateObject(type);         
     }
 
-    public static GameObject GetObject(WeaponData.WeaponName objName, Transform objParent)
+    public static void ReturnObject<T>(T _type, GameObject obj)
     {
-        Queue<GameObject> objQueue = poolDict[objName];
-        if (poolDict.ContainsKey(objName) && poolDict[objName].Count > 0)
+        string type = _type.ToString();
+
+        if (instance.poolDict.ContainsKey(type))
         {
-            return objQueue.Dequeue();
+            instance.poolDict[type].Enqueue(obj);
         }
         else
         {
-            var wpList = from weapon in instance.weaponList where weapon.weaponName == objName select weapon;
-            GameObject obj = instance.CreateObject(wpList.ToArray()[0].weaponPrefab, objParent);
-
-            return obj;  
+            Queue<GameObject> objQueue = new();
+            objQueue.Enqueue(obj);
+            instance.poolDict.Add(type, objQueue);
         }
+       
     }
 
-    public static void ReturnObject(WeaponData.WeaponName objName, GameObject obj)
+    bool IsPlayer(CharacterData.CharacterType characterType)
     {
-        if (poolDict.ContainsKey(objName))
+        switch (characterType)
         {
-            poolDict[objName].Enqueue(obj);
+            case CharacterData.CharacterType.Knight:
+            case CharacterData.CharacterType.Bandit:
+                return true;
+            default:
+                return false;
         }
-        else if(!poolDict.ContainsKey(objName))
-        {
-            Queue<GameObject> objQueue = poolDict[objName];
-            poolDict.Add(objName, objQueue);
-        }
-        
     }
 }
 
-[System.Serializable]
-public struct WeaponDict
-{
-    public WeaponData.WeaponName weaponName;
-    public GameObject weaponPrefab;
-}
+
+

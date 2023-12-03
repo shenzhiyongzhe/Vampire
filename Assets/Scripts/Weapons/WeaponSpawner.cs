@@ -1,43 +1,53 @@
-﻿using Assets.Scripts.Weapons;
+﻿
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static WeaponData;
-
 
 public class WeaponSpawner : MonoBehaviour
 {
-    [SerializeField] WeaponData weaponData;
-    WeaponData.WeaponName weaponName;
-    float attackRange;
-    float lastTime;
-    float cooldownTime;
-    [SerializeField] int weaponNum;
-    void Awake()
-    {
-        Initialize();
-    }
-    protected void Initialize()
-    {
-        weaponName = weaponData.Name;
-        attackRange = weaponData.AttackRange;
-        lastTime = weaponData.LastTime;
-        cooldownTime = weaponData.CooldownTime;
-        weaponNum = weaponData.WeaponNum;
+    //[SerializeField] protected WeaponData weaponData;
+    //WeaponData.WeaponName weaponName;
+    //float attackRange;
+    //float lastTime;
+    //float cooldownTime;
+    //int weaponNum;
+    //void Awake()
+    //{
+    //    Initialize(weaponData);
+    //}
+
+    //void Initialize(WeaponData weaponData)
+    //{
+    //    this.weaponData = weaponData;
+    //}
+    //protected void SetParameters(WeaponData weaponData)
+    //{
+    //    weaponName = weaponData.Name;
+    //    attackRange = weaponData.AttackRange;
+    //    lastTime = weaponData.LastTime;
+    //    cooldownTime = weaponData.CooldownTime;
+    //    weaponNum = weaponData.WeaponNum;
+    //}
+
+    protected GameObject SpawnWeapon(WeaponData weaponData)
+    {  
+
+        GameObject obj = ObjectPool.GetObject(weaponData.Name);
+        return obj;
+        //obj.transform.SetParent(this.transform);
+        //obj.SetActive(true);
+        //obj.transform.position = new Vector3(Mathf.Cos(2 * Mathf.PI / weaponData.WeaponNum * i) * weaponData.AttackRange,
+        //    Mathf.Sin(2 * Mathf.PI / weaponData.WeaponNum * i) * weaponData.AttackRange, 0) + transform.position;
+        //StartCoroutine(SetInactive(obj, weaponData.LastTime, weaponData.Name));
+            //obj.GetComponent<Weapon>().SetParameters(weaponData.Name, weaponData.LastTime, weaponData.CooldownTime);
+        
+  
     }
 
-    protected void SpawnWeapon()
-    {  
-        for(int i = 0; i < weaponNum; i++)
-        {  
-            GameObject obj = ObjectPool.GetObject(weaponName, transform);
-            obj.SetActive(true);
-            obj.transform.position = new Vector3(Mathf.Cos(2 * Mathf.PI / weaponNum * i) * attackRange,
-                Mathf.Sin(2 * Mathf.PI / weaponNum * i) * attackRange, 0) + transform.position;
-            obj.GetComponent<Weapon>().SetParameters(weaponName, lastTime, cooldownTime);
-        }
-  
+    protected IEnumerator SetInactive(GameObject obj, float lastTime, WeaponData.WeaponType weaponName)
+    {
+        yield return new WaitForSeconds(lastTime);
+        ObjectPool.ReturnObject(weaponName, obj);
+        obj.SetActive(false);
     }
 
 }

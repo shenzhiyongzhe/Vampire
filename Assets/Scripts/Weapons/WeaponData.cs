@@ -4,9 +4,9 @@
 [CreateAssetMenu(fileName = "Weapon Data", menuName = "Scriptable Object/Weapon Data", order = int.MaxValue)]
 public class WeaponData : ScriptableObject
 {
-    public enum WeaponName
+    public enum WeaponType
     {
-        Whip, Axe, Bible, Lightning, MagicWand, FireWand
+        Bible
     }
 
     public enum Parent
@@ -14,7 +14,7 @@ public class WeaponData : ScriptableObject
         Self, Player
     }
 
-    [SerializeField] WeaponName _weaponName;
+    [SerializeField] WeaponType _weaponName;
     [SerializeField] Parent _parent;
     [SerializeField] int _attackPower;
     [SerializeField] int _weaponNum;
@@ -25,7 +25,7 @@ public class WeaponData : ScriptableObject
     [SerializeField] Sprite _weaponSprite;
     [SerializeField] string _description;
 
-    public WeaponName Name => _weaponName; 
+    public WeaponType Name => _weaponName; 
     public Parent GetParent => _parent;
     public int AttackPower => _attackPower;
     public int WeaponNum => _weaponNum;
