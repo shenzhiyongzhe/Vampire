@@ -10,7 +10,9 @@ public class Enemy : Character
 
     SpriteRenderer spriteRenderer;
 
-    bool isCoroutin;
+    float luck;
+
+    //bool isDead = false;
 
     void Awake()
     {
@@ -18,18 +20,23 @@ public class Enemy : Character
         spriteRenderer = GetComponent<SpriteRenderer>();    
         spriteRenderer.sprite = Sprite;
         player = PlayerMove.GetInstance();
+        luck = 0.5f;
     }
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, MoveSpeed * Time.deltaTime);
-        if (player.transform.position.x - transform.position.x < 0)
+        if (!Anim.GetBool("isDead"))
         {
-            spriteRenderer.flipX = true;
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, MoveSpeed * Time.deltaTime);
+            if (player.transform.position.x - transform.position.x < 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
         }
-        else
-        {
-            spriteRenderer.flipX = false;
-        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,14 +51,18 @@ public class Enemy : Character
     public override void GetHurt(int damage)
     {
         base.GetHurt(damage);
+        Anim.SetTrigger("takeHit");
         StartCoroutine(FloatingDamage(damage));
     }
-    public override void Die()
+    public override IEnumerator Die()
     {
         Anim.SetBool("isDead", true);
+        DropCrystal();
         ObjectPool.ReturnObject(GetCharacterType(), gameObject);
         gameObject.GetComponent<Collider2D>().enabled = false;
+        yield return new WaitForSeconds(0.3f);
         gameObject.GetComponent<Collider2D>().enabled = true;
+        Anim.SetBool("isDead", false);
         gameObject.SetActive(false);
 
     }
@@ -67,14 +78,22 @@ public class Enemy : Character
         rectTransform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, rectTransform.position.z);
 
         damageText.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
         ObjectPool.ReturnObject("damage", damageText);
+        damageText.SetActive(false) ;
+        Debug.Log("return txt to poo;");
     }
 
-    IEnumerator WaitSecond(float sec)
+    void DropCrystal()
     {
-        yield return new WaitForSeconds(sec);
-    }
+        float rand = Random.value;
+        if (rand > luck)
+        {
+            GameObject crystal = ObjectPool.GetObject(CrystalData.CrystalType.BlueCrystal);
+            crystal.transform.position = transform.position;
+            crystal.SetActive(true);
 
+        }
+    }
 }

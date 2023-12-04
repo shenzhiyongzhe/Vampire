@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1ef5e346296eb4196a6831b426bed1, type: 3}
   m_Name: Mushroom
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 4944230376442633554, guid: c6ac0078f39473048b9f54d791095f35, type: 3}
   _controller: {fileID: 0}
   _characterType: 0
-  _healthPoint: 20
+  _healthPoint: 1
   _attackPower: 10
   _defencePower: 1
   _moveSpeed: 2

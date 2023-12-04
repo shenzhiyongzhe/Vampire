@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PropsPicker : MonoBehaviour
 {
-
+    [SerializeField] Player player;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,11 @@ public class PropsPicker : MonoBehaviour
     {
         if(collision.tag == "Props")
         {
-            Destroy(collision.gameObject);
+            int exp = collision.GetComponent<Crystal>().Exp;
+            player.PlayerExp += exp;
+            Debug.Log(player.PlayerExp);
+            ObjectPool.ReturnObject(collision.GetComponent<Crystal>().GetCrystalType(), collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
     }
 }

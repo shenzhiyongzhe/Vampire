@@ -35,12 +35,13 @@ public abstract class Character : MonoBehaviour
         if (hp <= damage)
         {
             hp = 0;
-            StartDie();
+            StartCoroutine(Die());
         }
         else
         {
             hp -= damage;
         }
+
     }
 
     public CharacterData.CharacterType GetCharacterType()
@@ -48,7 +49,7 @@ public abstract class Character : MonoBehaviour
         return characterData.Character_Type;
     }
 
-    public abstract void StartDie();
+    public abstract IEnumerator Die();
 
 }
 

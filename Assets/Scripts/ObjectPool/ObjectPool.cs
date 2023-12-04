@@ -1,5 +1,4 @@
-﻿using Assets.Scripts;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +12,8 @@ public class ObjectPool : MonoBehaviour
   
     const int WeaponNum = 10;
     const int EnemyNum = 10;
-    const int damageTxtNum = 10;
+    const int CrystalNum = 10;
+    const int damageTxtNum = 20;
 
     static ObjectPool instance;
 
@@ -29,9 +29,9 @@ public class ObjectPool : MonoBehaviour
     //[SerializeField] GameObject lightningPrefab;
     //[SerializeField] GameObject magicWandPrefab;
 
-    //[SerializeField] GameObject blueCrystalPrefab;
-    //[SerializeField] GameObject greenCrystalPrefab;
-    //[SerializeField] GameObject redCrystalPrefab;
+    [SerializeField] GameObject blueCrystalPrefab;
+    [SerializeField] GameObject greenCrystalPrefab;
+    [SerializeField] GameObject redCrystalPrefab;
 
     [SerializeField] GameObject DamageText;
     private void Awake()
@@ -66,8 +66,19 @@ public class ObjectPool : MonoBehaviour
             }
 
             poolDict.Add(weaponType.ToString(), newQue);
-            Debug.Log(weaponType.ToString());
 
+        }
+
+        foreach(CrystalData.CrystalType crystalType in Enum.GetValues(typeof(CrystalData.CrystalType)))
+        {
+            Queue<GameObject> newQue = new Queue<GameObject>();
+
+            for (int j = 0; j < CrystalNum; j++)
+            {
+                newQue.Enqueue(CreateObject(crystalType));
+            }
+
+            poolDict.Add(crystalType.ToString(), newQue);
         }
 
         Queue<GameObject> damageQue = new Queue<GameObject>();
@@ -107,6 +118,13 @@ public class ObjectPool : MonoBehaviour
             case WeaponData.WeaponType.Bible:
                 newObject = Instantiate(instance.biblePrefab);
                 break;
+
+            case CrystalData.CrystalType.BlueCrystal:
+                newObject = Instantiate(instance.blueCrystalPrefab); break;
+            case CrystalData.CrystalType.GreenCrystal:
+                newObject = Instantiate(instance.greenCrystalPrefab); break;
+            case CrystalData.CrystalType.RedCrystal:
+                newObject = Instantiate(instance.redCrystalPrefab); break;
 
             case "damage":
                 newObject = Instantiate(instance.DamageText); break;
