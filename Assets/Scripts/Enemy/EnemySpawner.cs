@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using CharacterData = Assets.Scripts.Character.CharacterData;
 
 
 public class EnemySpawner : MonoBehaviour

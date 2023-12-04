@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Character;
+﻿
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -10,10 +10,12 @@ public class Enemy : Character
 
     SpriteRenderer spriteRenderer;
 
+    bool isCoroutin;
+
     void Awake()
     {
         Initialize();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();    
         spriteRenderer.sprite = Sprite;
         player = PlayerMove.GetInstance();
     }
@@ -42,16 +44,19 @@ public class Enemy : Character
     public override void GetHurt(int damage)
     {
         base.GetHurt(damage);
-        //StartCoroutine(FloatingDamage(damage));
-        FloatingDamage(damage);
+        StartCoroutine(FloatingDamage(damage));
     }
     public override void Die()
     {
+        Anim.SetBool("isDead", true);
         ObjectPool.ReturnObject(GetCharacterType(), gameObject);
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        gameObject.GetComponent<Collider2D>().enabled = true;
         gameObject.SetActive(false);
+
     }
 
-    void FloatingDamage(int damage)
+    IEnumerator FloatingDamage(int damage)
     {
         GameObject damageText = ObjectPool.GetObject("damage");
         TextMeshPro textMesh = damageText.GetComponent<TextMeshPro>();
@@ -62,9 +67,14 @@ public class Enemy : Character
         rectTransform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, rectTransform.position.z);
 
         damageText.SetActive(true);
-        //yield return new WaitForSeconds(0.2f);
-        
+        yield return new WaitForSeconds(0.1f);
+
         ObjectPool.ReturnObject("damage", damageText);
+    }
+
+    IEnumerator WaitSecond(float sec)
+    {
+        yield return new WaitForSeconds(sec);
     }
 
 }

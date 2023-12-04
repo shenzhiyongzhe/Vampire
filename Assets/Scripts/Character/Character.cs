@@ -1,55 +1,54 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Character
+
+public abstract class Character : MonoBehaviour
 {
-    public abstract class Character : MonoBehaviour
+
+    [SerializeField] CharacterData characterData;
+    Sprite sprite;
+    RuntimeAnimatorController controller;
+    Animator _animator;
+    int hp;
+    int attackPower;
+    int defencePower;
+    int moveSpeed;
+
+
+    protected virtual void Initialize()
     {
+        _animator = GetComponent<Animator>();
+        hp = characterData.HealthPoint;
+        attackPower = characterData.AttackPower;
+        defencePower = characterData.DefencePower;
+        moveSpeed = characterData.MoveSpeed;
+    }
+    public Animator Anim => _animator;
+    public Sprite Sprite => sprite;
+    public int HP => hp;
+    public int AttackPower => attackPower;
+    public int DefencePower => defencePower;
+    public int MoveSpeed => moveSpeed;
 
-        [SerializeField] CharacterData characterData;
-        Sprite sprite;
-        RuntimeAnimatorController controller;
-        Animator animator;
-        int hp;
-        int attackPower;
-        int defencePower;
-        int moveSpeed;
-
-
-        protected virtual void Initialize()
+    public virtual void GetHurt(int damage)
+    {
+        if (hp <= damage)
         {
-            hp = characterData.HealthPoint;
-            attackPower = characterData.AttackPower;
-            defencePower = characterData.DefencePower;
-            moveSpeed = characterData.MoveSpeed;
+            hp = 0;
+            StartDie();
         }
-
-        public Sprite Sprite => sprite;
-        public int HP => hp;
-        public int AttackPower => attackPower;
-        public int DefencePower => defencePower;
-        public int MoveSpeed => moveSpeed;
-
-        public virtual void GetHurt(int damage)
+        else
         {
-            if (hp <= damage)
-            {
-                hp = 0;
-                Die();
-            }
-            else
-            {
-                hp -= damage;
-            }
+            hp -= damage;
         }
-
-        public CharacterData.CharacterType GetCharacterType()
-        {
-            return characterData.Character_Type;
-        }
-
-        public abstract void Die();
-
     }
 
+    public CharacterData.CharacterType GetCharacterType()
+    {
+        return characterData.Character_Type;
+    }
+
+    public abstract void StartDie();
+
 }
+
