@@ -15,11 +15,12 @@ public class Weapon : MonoBehaviour
         StartCoroutine(StartDestroy());
     }
  
-    public void SetParameters(WeaponData weaponData, int attackPower, float cooldownTime)
+    public void SetParameters(WeaponData weaponData, int attackPower, float cooldownTime, float attackSpeed)
     {
         this.weaponData = weaponData;
         this.attackPower = attackPower;
         this.cooldownTime = cooldownTime;
+        _attackSpeed = attackSpeed;
     }
     //IEnumerator 
 
@@ -28,6 +29,7 @@ public class Weapon : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             collision.GetComponent<Enemy>().GetHurt(attackPower);
+            Debug.Log(AttackSpeed);
         }
     }
     protected virtual IEnumerator StartDestroy()

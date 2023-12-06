@@ -60,7 +60,7 @@ public class Enemy : Character
         DropCrystal();
         ObjectPool.ReturnObject(GetCharacterType(), gameObject);
         gameObject.GetComponent<Collider2D>().enabled = false;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.6f);
         gameObject.GetComponent<Collider2D>().enabled = true;
         Anim.SetBool("isDead", false);
         gameObject.SetActive(false);

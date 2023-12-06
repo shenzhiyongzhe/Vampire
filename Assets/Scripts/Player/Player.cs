@@ -30,13 +30,14 @@ public class Player : MonoBehaviour
             {
                 _playerExp = 0;
                 playerLv++;
-                Debug.Log($"playerLevel:{playerLv}");
+                EventSys.OnLevelUp(playerLv);
             }
             else
             {
                 _playerExp = value; 
             }
             EventSys.OnPickUp((float)_playerExp / levelUpExp);
+
         }
     }
     public int HP

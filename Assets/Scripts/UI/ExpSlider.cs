@@ -25,7 +25,6 @@ public class ExpSlider : MonoBehaviour
     public void RefreshExpBar(float percent)
     {
         slider.value = percent;
-        Debug.Log(percent + "%");
     }
 
 }

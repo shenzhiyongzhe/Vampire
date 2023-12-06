@@ -35,7 +35,7 @@ public class WeaponSpawner : MonoBehaviour
     public void SpawnWeapon()
     {
         GameObject weapon = ObjectPool.GetObject(WeaponName);
-        weapon.GetComponent<Weapon>().SetParameters(weaponData, attackPower, cooldownTime);
+        weapon.GetComponent<Weapon>().SetParameters(weaponData, attackPower, cooldownTime, attackSpeed);
         weapon.SetActive(true);
     }
 }
