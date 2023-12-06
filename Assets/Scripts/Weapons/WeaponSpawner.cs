@@ -5,37 +5,36 @@ using UnityEngine;
 public class WeaponSpawner : MonoBehaviour
 {
     [SerializeField] protected WeaponData weaponData;
-    int level;
-    int attackPower;
-    float attackSpeed;
-    int finalAttackPower;
-    float finalAttackSpeed;
-    float cooldownTime;
-    float additionalScale;
-    Sprite weaponIcon;
+    protected Transform playerPos;
 
+    protected float attackSpeed;
+    protected int attackPower;
+    protected float lastTime;
+    protected float cooldownTime;
+    protected float attackRange;
+    protected int weaponNum;
 
-    public WeaponData.WeaponType WeaponName => weaponData.Name; 
-    void Awake()
+    private void Awake()
     {
         Initialize();
+        playerPos = PlayerMove.GetInstance().transform;
     }
 
-
-    protected void Initialize()
+    void Initialize()
     {
-        weaponIcon = weaponData.WeaponSprite;
-        attackPower = weaponData.AttackPower;
         attackSpeed = weaponData.AttackSpeed;
+        attackPower = weaponData.AttackPower;
+        lastTime = weaponData.LastTime;
         cooldownTime = weaponData.CooldownTime;
-        level = 1;
-        additionalScale = 100f;
+        attackRange = weaponData.AttackRange;
+        weaponNum = weaponData.WeaponNum;
+    }
+    protected GameObject SpawnWeapon()
+    {
+        GameObject obj = ObjectPool.GetObject(weaponData.Name);
+        obj.SetActive(true);
+        obj.GetComponent<Weapon>().SetParameters(weaponData, attackPower, cooldownTime, attackSpeed);
+        return obj;
     }
 
-    public void SpawnWeapon()
-    {
-        GameObject weapon = ObjectPool.GetObject(WeaponName);
-        weapon.GetComponent<Weapon>().SetParameters(weaponData, attackPower, cooldownTime, attackSpeed);
-        weapon.SetActive(true);
-    }
 }

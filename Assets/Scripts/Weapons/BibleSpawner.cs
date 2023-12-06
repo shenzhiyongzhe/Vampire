@@ -1,15 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 public class BibleSpawner : WeaponSpawner
 {
-    //float attackRange;
-    //float lastTime;
-    //float cooldownTime;
-    //[SerializeField] int weaponNum;
-    // Use this for initialization
     void Start()
     {
         StartCoroutine(SpawnBible());
@@ -18,21 +12,16 @@ public class BibleSpawner : WeaponSpawner
     {
         while (true)
         {
-            for(int i = 0; i < weaponData.WeaponNum; i++)
+            for(int i = 0; i < weaponNum; i++)
             {
-                GameObject obj = ObjectPool.GetObject(WeaponData.WeaponType.Bible);
-
-                obj.transform.SetParent(this.transform);
-                obj.transform.position = new Vector3(Mathf.Cos(2 * Mathf.PI / weaponData.WeaponNum * i) * weaponData.AttackRange,
-                    Mathf.Sin(2 * Mathf.PI / weaponData.WeaponNum * i) * weaponData.AttackRange, 0) + transform.position;
-                obj.SetActive(true);
-      
+                GameObject obj = SpawnWeapon();
+                obj.transform.SetParent(transform, false);
+                obj.transform.position = new Vector3(Mathf.Cos(2 * Mathf.PI / weaponNum * i) * attackRange,
+                                                     Mathf.Sin(2 * Mathf.PI / weaponNum * i) * attackRange, 0) + playerPos.position;
             }
-
-            yield return new WaitForSeconds(weaponData.CooldownTime + weaponData.LastTime);
+            yield return new WaitForSeconds(cooldownTime + lastTime);
+         
 
         }
     }
-
-
 }

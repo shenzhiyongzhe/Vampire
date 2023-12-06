@@ -4,11 +4,11 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     WeaponData weaponData;
-    float _attackSpeed;
+
+    protected float attackSpeed;
     public int attackPower;
     protected float cooldownTime;
     float lastTime;
-    public float AttackSpeed => _attackSpeed;
 
     void OnEnable()
     {
@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
         this.weaponData = weaponData;
         this.attackPower = attackPower;
         this.cooldownTime = cooldownTime;
-        _attackSpeed = attackSpeed;
+        this.attackSpeed = attackSpeed;
     }
     //IEnumerator 
 
@@ -29,7 +29,6 @@ public class Weapon : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             collision.GetComponent<Enemy>().GetHurt(attackPower);
-            Debug.Log(AttackSpeed);
         }
     }
     protected virtual IEnumerator StartDestroy()
@@ -40,8 +39,8 @@ public class Weapon : MonoBehaviour
     }
     protected void InactivateWeapon()
     {
-        ObjectPool.ReturnObject(WeaponData.WeaponType.Bible, this.gameObject);
-        this.gameObject.SetActive(false);
+        ObjectPool.ReturnObject(WeaponData.WeaponType.Bible, gameObject);
+        gameObject.SetActive(false);
     }
 
 }
