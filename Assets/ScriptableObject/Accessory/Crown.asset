@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba10a6ba49733a44b33f305a93772e5, type: 3}
   m_Name: Crown
   m_EditorClassIdentifier: 
-  accessoryType: 0
-  accessorySprite: {fileID: 0}
-  accessoryDesc: 
+  accessoryType: 5
+  accessorySprite: {fileID: 21300000, guid: 561763358bb706d4b9a195af3b25d5fd, type: 3}
+  accessoryDesc: "\u589E\u52A010%\u7ECF\u9A8C"

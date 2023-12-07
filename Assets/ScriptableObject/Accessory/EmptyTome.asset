@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba10a6ba49733a44b33f305a93772e5, type: 3}
   m_Name: EmptyTome
   m_EditorClassIdentifier: 
-  accessoryType: 0
-  accessorySprite: {fileID: 0}
-  accessoryDesc: 
+  accessoryType: 2
+  accessorySprite: {fileID: 21300000, guid: 3360d920536467443a829c146c8f66ad, type: 3}
+  accessoryDesc: "\u51CF\u5C1110%\u6B66\u5668\u51B7\u5374\u65F6\u95F4"

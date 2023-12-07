@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Spinach
   m_EditorClassIdentifier: 
   accessoryType: 0
-  accessorySprite: {fileID: 0}
-  accessoryDesc: 
+  accessorySprite: {fileID: 21300000, guid: cd1b3a03734a85346b40ee2c8ff6f21f, type: 3}
+  accessoryDesc: "\u589E\u52A010%\u4F24\u5BB3"
