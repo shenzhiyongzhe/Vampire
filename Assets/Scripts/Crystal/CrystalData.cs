@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="Crystal Data", menuName ="Scriptable/Crystal Data")]
+[CreateAssetMenu(fileName ="Crystal Data", menuName ="Scriptable Object/Crystal Data")]
 public class CrystalData: ScriptableObject
 {
     public enum CrystalType
