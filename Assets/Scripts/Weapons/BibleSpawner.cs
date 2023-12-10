@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class BibleSpawner : WeaponSpawner
 {
-    void Start()
-    {
-        StartCoroutine(SpawnBible());
-    }
-    IEnumerator SpawnBible()
+    protected override IEnumerator StartAttack()
     {
         while (true)
         {
@@ -19,9 +15,7 @@ public class BibleSpawner : WeaponSpawner
                 obj.transform.position = new Vector3(Mathf.Cos(2 * Mathf.PI / weaponNum * i) * attackRange,
                                                      Mathf.Sin(2 * Mathf.PI / weaponNum * i) * attackRange, 0) + playerPos.position;
             }
-            yield return new WaitForSeconds(cooldownTime + lastTime);
-         
-
+            yield return new WaitForSeconds(cooldownTime + lastTime);      
         }
     }
 }

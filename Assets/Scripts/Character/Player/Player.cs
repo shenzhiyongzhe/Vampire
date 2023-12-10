@@ -1,26 +1,32 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _HP;
+
+    LevelUp levelUp;
+
     int playerLv = 0;
     int _playerExp = 1;
     int levelUpExp = 30;
+    public int HP
+    {
+        get { return _HP; }
+        set { _HP = value; }
+    }
 
     public int LvUpExp => levelUpExp;
+    public int PlayerLv => playerLv;
 
-    //private void Awake()
-    //{
-    //    levelUpExp = playerLv * 10 + 30;
+    public static Player instance;
+    private void Awake()
+    {
+        instance = this;
+        levelUpExp = playerLv * 10 + 30;
+        levelUp = GetComponent<LevelUp>();
 
-    //}
+    }
 
-    //private void Update()
-    //{
-
-    //}
     public int PlayerExp
     {
         get { return _playerExp; }
@@ -30,22 +36,17 @@ public class Player : MonoBehaviour
             {
                 _playerExp = 0;
                 playerLv++;
-                EventSys.OnLevelUp(playerLv);
+                levelUp.OnLevelUp();
+
             }
             else
             {
                 _playerExp = value; 
             }
-            EventSys.OnPickUp((float)_playerExp / levelUpExp);
 
         }
     }
-    public int HP
-    {
-        get { return _HP; }
-        set { _HP = value; }
-    }
-    
+
 
 
 }

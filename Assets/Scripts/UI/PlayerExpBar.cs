@@ -2,17 +2,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExpSlider : MonoBehaviour
+public class PlayerExpBar : MonoBehaviour
 {
     Slider slider;
-    private void OnEnable()
-    {
-        EventSys.PickCrystal += RefreshExpBar;
-    }
-    private void OnDisable()
-    {
-        EventSys.PickCrystal -= RefreshExpBar;
-    }
+
     // Use this for initialization
     void Awake()
     {

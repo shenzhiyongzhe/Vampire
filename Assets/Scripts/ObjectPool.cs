@@ -24,10 +24,10 @@ public class ObjectPool : MonoBehaviour
 
     [SerializeField] GameObject whipPrefab;
     [SerializeField] GameObject biblePrefab;
-    //[SerializeField] GameObject axePrefab;
-    //[SerializeField] GameObject pigeonPrefab;
-    //[SerializeField] GameObject lightningPrefab;
-    //[SerializeField] GameObject magicWandPrefab;
+    [SerializeField] GameObject axePrefab;
+    [SerializeField] GameObject fireWandPrefab;
+    [SerializeField] GameObject magicWandPrefab;
+    [SerializeField] GameObject lightningPrefab;
 
     [SerializeField] GameObject blueCrystalPrefab;
     [SerializeField] GameObject greenCrystalPrefab;
@@ -112,12 +112,25 @@ public class ObjectPool : MonoBehaviour
             //    newObject = Instantiate(instance.skeletonPrefab);
             //    break;
 
-            //case WeaponData.WeaponType.Whip:
-            //    newObject = Instantiate(instance.whipPrefab);
-            //    break;
+            case WeaponData.WeaponType.Whip:
+                newObject = Instantiate(instance.whipPrefab);
+                break;
             case WeaponData.WeaponType.Bible:
                 newObject = Instantiate(instance.biblePrefab);
                 break;
+            case WeaponData.WeaponType.Axe:
+                newObject = Instantiate(instance.axePrefab);
+                break;
+            case WeaponData.WeaponType.FireWand:
+                newObject = Instantiate(instance.fireWandPrefab);
+                break;
+            case WeaponData.WeaponType.MagicWand:
+                newObject = Instantiate(instance.magicWandPrefab);
+                break;
+            case WeaponData.WeaponType.Lightning:
+                newObject = Instantiate(instance.lightningPrefab);
+                break;
+
 
             case CrystalData.CrystalType.BlueCrystal:
                 newObject = Instantiate(instance.blueCrystalPrefab); break;

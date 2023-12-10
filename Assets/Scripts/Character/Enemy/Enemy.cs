@@ -10,7 +10,7 @@ public class Enemy : Character
 
     SpriteRenderer spriteRenderer;
 
-    float luck;
+
 
     //bool isDead = false;
 
@@ -20,7 +20,6 @@ public class Enemy : Character
         spriteRenderer = GetComponent<SpriteRenderer>();    
         spriteRenderer.sprite = Sprite;
         player = PlayerMove.GetInstance();
-        luck = 0.5f;
     }
     void Update()
     {
@@ -82,18 +81,17 @@ public class Enemy : Character
 
         ObjectPool.ReturnObject("damage", damageText);
         damageText.SetActive(false) ;
-        Debug.Log("return txt to poo;");
     }
 
     void DropCrystal()
     {
         float rand = Random.value;
-        if (rand > luck)
-        {
+        //if (rand > luck)
+        //{
             GameObject crystal = ObjectPool.GetObject(CrystalData.CrystalType.BlueCrystal);
             crystal.transform.position = transform.position;
             crystal.SetActive(true);
 
-        }
+        //}
     }
 }

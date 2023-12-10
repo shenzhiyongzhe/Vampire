@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class WeaponSpawner : MonoBehaviour
+public abstract class WeaponSpawner : MonoBehaviour
 {
     [SerializeField] protected WeaponData weaponData;
     protected Transform playerPos;
@@ -13,6 +13,7 @@ public class WeaponSpawner : MonoBehaviour
     protected float cooldownTime;
     protected float attackRange;
     protected int weaponNum;
+    int level = 0;
 
     private void Awake()
     {
@@ -31,10 +32,25 @@ public class WeaponSpawner : MonoBehaviour
     }
     protected GameObject SpawnWeapon()
     {
-        GameObject obj = ObjectPool.GetObject(weaponData.Name);
+        GameObject obj = ObjectPool.GetObject(weaponData.WeaponName);
         obj.SetActive(true);
         obj.GetComponent<Weapon>().SetParameters(weaponData, attackPower, cooldownTime, attackSpeed);
         return obj;
     }
 
+    public WeaponData.WeaponType GetWeaponType()
+    {
+        return weaponData.WeaponName;
+    }
+
+    public int Level => level;
+    public void IncreaseLevel()
+    {
+        level++;
+    }
+    public void StartWeapon()
+    {
+        StartCoroutine(StartAttack());
+    }
+    protected abstract IEnumerator StartAttack();
 }

@@ -2,13 +2,11 @@
 using UnityEngine;
 
 
-public class AxeSpawner : WeaponSpawner
+public class WhipSpawner : WeaponSpawner
 {
 
     protected override IEnumerator StartAttack()
     {
-        Debug.Log("Axe Spawned。。。");
-        yield return null;
+       yield return null;
     }
-
 }

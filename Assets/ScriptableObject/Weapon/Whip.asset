@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e930eff1da31b0343b562b7642037ea0, type: 3}
-  m_Name: Bible
+  m_Name: Whip
   m_EditorClassIdentifier: 
-  _weaponName: 1
+  _weaponName: 5
   _parent: 0
-  _attackPower: 100
-  _weaponNum: 6
-  _attackSpeed: 60
-  _attackRange: 4
-  _cooldownTime: 0.01
-  _lastTime: 3
-  _weaponSprite: {fileID: 21300000, guid: 1dea3177f708da443ba74b332fc8221b, type: 3}
-  _description: 
+  _attackPower: 1
+  _weaponNum: 1
+  _attackSpeed: 2
+  _attackRange: 1
+  _cooldownTime: 1
+  _lastTime: 1
+  _weaponSprite: {fileID: 21300000, guid: d2b3ef36966bd70488e264f6f30c8951, type: 3}
+  _description: jinzhan

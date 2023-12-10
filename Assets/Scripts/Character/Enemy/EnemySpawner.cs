@@ -24,9 +24,9 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator LoopSpawnEnemy()
     {
-        float rand = Random.value * 10;
         while (true)
         {
+            float rand = Random.value * 10;
             SpawnFlyingEye();
             SpawnMushroom();
             yield return new WaitForSeconds(rand);

@@ -10,11 +10,11 @@ public class LevelTxt : MonoBehaviour
 
     private void OnEnable()
     {
-        EventSys.LevelUp += ModifyTxt;
+        EventManager.LevelUp += ModifyTxt;
     }
     private void OnDisable()
     {
-        EventSys.LevelUp -= ModifyTxt;
+        EventManager.LevelUp -= ModifyTxt;
     }
     // Use this for initialization
     void Awake()
@@ -22,8 +22,8 @@ public class LevelTxt : MonoBehaviour
         _textMeshPro = GetComponent<TMP_Text>();
     }
 
-    void ModifyTxt(int level)
+    void ModifyTxt()
     {
-        _textMeshPro.text = $"等级：{level}";
+        _textMeshPro.text = $"等级：{Player.instance.PlayerLv}";
     }
 }

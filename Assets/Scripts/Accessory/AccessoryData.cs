@@ -14,8 +14,8 @@ public class AccessoryData : ScriptableObject
         Spinach, Armor, EmptyTome, Wings, Clover, Crown
     }
 
-    public AccessoryType GetAccessoryType() { return accessoryType; }
+    public AccessoryType AccessoryName => accessoryType;
 
-    public Sprite GetAccessorySprite() {  return accessorySprite; }
-    public string GetAccessoryDesc() {  return accessoryDesc; }
+    public Sprite AccessorySprite => accessorySprite;
+    public string AccessoryDesc => accessoryDesc;
 }

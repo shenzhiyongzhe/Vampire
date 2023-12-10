@@ -6,7 +6,7 @@ public class WeaponData : ScriptableObject
 {
     public enum WeaponType
     {
-        Bible
+         Axe, Bible, Lightning, MagicWand, FireWand, Whip, 
     }
 
     public enum Parent
@@ -25,7 +25,7 @@ public class WeaponData : ScriptableObject
     [SerializeField] Sprite _weaponSprite;
     [SerializeField] string _description;
 
-    public WeaponType Name => _weaponName; 
+    public WeaponType WeaponName => _weaponName; 
     public Parent GetParent => _parent;
     public int AttackPower => _attackPower;
     public int WeaponNum => _weaponNum;
