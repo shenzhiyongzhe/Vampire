@@ -1,8 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Bible : Weapon
+
+public class Whip : Weapon
 {
-
     private void Update()
     {
         transform.RotateAround(Player.position, Vector3.forward, attackSpeed * Time.deltaTime);

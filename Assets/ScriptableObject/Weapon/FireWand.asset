@@ -15,9 +15,9 @@ MonoBehaviour:
   _weaponName: 4
   _parent: 0
   _attackPower: 1
-  _weaponNum: 1
+  _weaponNum: 4
   _attackSpeed: 1
-  _attackRange: 1
+  _attackRange: 5
   _cooldownTime: 1
   _lastTime: 1
   _weaponSprite: {fileID: 21300000, guid: 845e9df29ac6bfe47b3e2925c1804fe9, type: 3}

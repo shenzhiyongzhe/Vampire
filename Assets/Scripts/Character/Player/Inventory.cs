@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour
         accessoryInventory = new();
         _instance = this;
         SlotInitialise();
-        bible = GetComponent<WeaponSpawner>();
+        bible = GetComponent<BibleSpawner>();
         bible.StartWeapon();
     }
 
@@ -55,7 +55,6 @@ public class Inventory : MonoBehaviour
 
         switch (weaponType)
         {
-            default:
             case WeaponData.WeaponType.Axe:
                 spawner = GetComponent<AxeSpawner>();
                 break;
@@ -74,12 +73,18 @@ public class Inventory : MonoBehaviour
             case WeaponData.WeaponType.Whip:
                 spawner = GetComponent<WhipSpawner>();
                 break;
+            default:
+                Debug.Log("not found this weapon");
+                spawner = bible;
+                break;
         }
 
         if (weaponInventory.ContainsKey(weaponType))
         {
-            spawner.IncreaseLevel();
-            weaponInventory[weaponType] = spawner.Level;
+            //spawner.IncreaseLevel();
+            //weaponInventory.Remove(spawner.GetWeaponType());
+            //weaponInventory.Add(spawner.GetWeaponType(), spawner.Level);
+            weaponInventory[weaponType]++;
         }
         else
         {

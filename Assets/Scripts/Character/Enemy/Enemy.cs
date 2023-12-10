@@ -19,7 +19,7 @@ public class Enemy : Character
         Initialize();
         spriteRenderer = GetComponent<SpriteRenderer>();    
         spriteRenderer.sprite = Sprite;
-        player = PlayerMove.GetInstance();
+        player = PlayerMove.Instance;
     }
     void Update()
     {
@@ -57,13 +57,13 @@ public class Enemy : Character
     {
         Anim.SetBool("isDead", true);
         DropCrystal();
-        ObjectPool.ReturnObject(GetCharacterType(), gameObject);
         gameObject.GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(0.6f);
+
         gameObject.GetComponent<Collider2D>().enabled = true;
         Anim.SetBool("isDead", false);
         gameObject.SetActive(false);
-
+        ObjectPool.ReturnObject(GetCharacterType(), gameObject);
     }
 
     IEnumerator FloatingDamage(int damage)

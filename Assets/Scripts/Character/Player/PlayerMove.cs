@@ -14,8 +14,8 @@ public class PlayerMove : MonoBehaviour
     public Vector3 moveDirection => move;
     public Vector2 lastDirection;
 
-    private static PlayerMove Instance;
-
+    private static PlayerMove instance;
+    public static PlayerMove Instance => instance;
 
     void Awake()
     {
@@ -23,7 +23,7 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         lastDirection = Vector2.right;
-        Instance = this;
+        instance = this;
     }
 
     // Update is called once per frame
@@ -58,9 +58,7 @@ public class PlayerMove : MonoBehaviour
         inputController.Player.Disable(); 
     }
 
-    public static PlayerMove GetInstance()
-    {
-        return Instance;
-    }
+    
+
 
 }

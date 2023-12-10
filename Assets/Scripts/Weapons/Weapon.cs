@@ -10,11 +10,17 @@ public class Weapon : MonoBehaviour
     protected float cooldownTime;
     float lastTime;
 
+    private Transform player;
+    public Transform Player => player;
     void OnEnable()
     {
         StartCoroutine(StartDestroy());
     }
- 
+
+    private void Start()
+    {
+        player = PlayerMove.Instance.transform;
+    }
     public void SetParameters(WeaponData weaponData, int attackPower, float cooldownTime, float attackSpeed)
     {
         this.weaponData = weaponData;

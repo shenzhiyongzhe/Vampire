@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour
     Transform player;
     void Start()
     {
-        player = PlayerMove.GetInstance().transform;
+        player = PlayerMove.Instance.transform;
 
         StartCoroutine(LoopSpawnEnemy());
     }
@@ -26,10 +26,10 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            float rand = Random.value * 10;
-            SpawnFlyingEye();
+            //float rand = Random.value * 3;
+            //SpawnFlyingEye();
             SpawnMushroom();
-            yield return new WaitForSeconds(rand);
+            yield return new WaitForSeconds(1f);
         }
     }
     void SpawnFlyingEye()

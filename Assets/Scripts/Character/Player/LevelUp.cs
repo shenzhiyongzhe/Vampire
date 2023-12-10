@@ -39,14 +39,10 @@ public class LevelUp : MonoBehaviour
     }
     public void OnLevelUp()
     {
-        ShowLevelUpWindow();
+        levelUpWindow.gameObject.SetActive(true);
         InsertData();
     }
 
-    void ShowLevelUpWindow()
-    {
-        levelUpWindow.gameObject.SetActive(true);
-    }
     void InstantiateWeaponSlot()
     {
         for (int i = 0; i < weaponSlots.Length; i++)
@@ -65,10 +61,9 @@ public class LevelUp : MonoBehaviour
     void InsertData()
     {
         List<string> isDuplictated = new();
-        int count = 0;
         foreach (var item in weaponSlots)
         {
-            if(Random.value > 0.5f)
+            if(Random.value > 0.01f)
             {
                 WeaponData weapon;
                 int level = 1;
@@ -80,11 +75,12 @@ public class LevelUp : MonoBehaviour
                 item.weaponName.text = weapon.WeaponName.ToString();
                 item.description.text = weapon.Description.ToString();
                 item.weaponLv.text = level.ToString();
-                item.selectedArrow.SetActive(count == 0);
+                item.selectedArrow.SetActive(false);
                 item.btn.onClick.RemoveAllListeners();
                 item.btn.onClick.AddListener(delegate
                 {
                     Inventory.Instance.AddWeapon(weapon.WeaponName);
+                    levelUpWindow.gameObject.SetActive(false);
                 });
             }
             else
@@ -99,14 +95,14 @@ public class LevelUp : MonoBehaviour
                 item.weaponName.text=accessory.AccessoryName.ToString();
                 item.description.text = accessory.AccessoryDesc.ToString();
                 item.weaponLv.text = level.ToString();
-                item.selectedArrow.SetActive(count == 0);
+                item.selectedArrow.SetActive(false);
                 item.btn.onClick.RemoveAllListeners();
                 item.btn.onClick.AddListener(delegate
                 {
                     Inventory.Instance.AddAccessory(accessory.AccessoryName);
+                    levelUpWindow.gameObject.SetActive(false);
                 });
             }
-            count++;
         }
 
     }

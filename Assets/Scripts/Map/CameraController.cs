@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
     Transform target;
     private void Start()
     {
-        target = PlayerMove.GetInstance().transform;
+        target = PlayerMove.Instance.transform;
     }
 
     void Update()

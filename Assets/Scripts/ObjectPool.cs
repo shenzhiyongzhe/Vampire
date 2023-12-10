@@ -34,6 +34,12 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] GameObject redCrystalPrefab;
 
     [SerializeField] GameObject DamageText;
+
+    [SerializeField] Transform weaponPool;
+    [SerializeField] Transform crystalPool;
+    [SerializeField] Transform enemyPool;
+    [SerializeField] Transform meleeWeapon;
+    [SerializeField] Transform damageTxtPool;
     private void Awake()
     {
         instance = this;
@@ -100,47 +106,47 @@ public class ObjectPool : MonoBehaviour
         switch (type)
         {
             case CharacterData.CharacterType.FlyingEye:
-                newObject = Instantiate(instance.flyingEyePrefab);
+                newObject = Instantiate(instance.flyingEyePrefab, instance.enemyPool);
                 break;
             //case CharacterData.CharacterType.Goblin:
             //    newObject = Instantiate(instance.goblinPrefab);
             //    break;
             case CharacterData.CharacterType.Mushroom:
-                newObject = Instantiate(instance.mushroomPrefab);
+                newObject = Instantiate(instance.mushroomPrefab, instance.enemyPool);
                 break;
             //case CharacterData.CharacterType.Skeleton:
             //    newObject = Instantiate(instance.skeletonPrefab);
             //    break;
 
             case WeaponData.WeaponType.Whip:
-                newObject = Instantiate(instance.whipPrefab);
+                newObject = Instantiate(instance.whipPrefab, instance.weaponPool);
                 break;
             case WeaponData.WeaponType.Bible:
-                newObject = Instantiate(instance.biblePrefab);
+                newObject = Instantiate(instance.biblePrefab, instance.meleeWeapon);
                 break;
             case WeaponData.WeaponType.Axe:
-                newObject = Instantiate(instance.axePrefab);
+                newObject = Instantiate(instance.axePrefab, instance.weaponPool);
                 break;
             case WeaponData.WeaponType.FireWand:
-                newObject = Instantiate(instance.fireWandPrefab);
+                newObject = Instantiate(instance.fireWandPrefab, instance.weaponPool);
                 break;
             case WeaponData.WeaponType.MagicWand:
-                newObject = Instantiate(instance.magicWandPrefab);
+                newObject = Instantiate(instance.magicWandPrefab, instance.weaponPool);
                 break;
             case WeaponData.WeaponType.Lightning:
-                newObject = Instantiate(instance.lightningPrefab);
+                newObject = Instantiate(instance.lightningPrefab, instance.weaponPool);
                 break;
 
 
             case CrystalData.CrystalType.BlueCrystal:
-                newObject = Instantiate(instance.blueCrystalPrefab); break;
+                newObject = Instantiate(instance.blueCrystalPrefab, instance.crystalPool); break;
             case CrystalData.CrystalType.GreenCrystal:
-                newObject = Instantiate(instance.greenCrystalPrefab); break;
+                newObject = Instantiate(instance.greenCrystalPrefab, instance.crystalPool); break;
             case CrystalData.CrystalType.RedCrystal:
-                newObject = Instantiate(instance.redCrystalPrefab); break;
+                newObject = Instantiate(instance.redCrystalPrefab, instance.crystalPool); break;
 
             case "damage":
-                newObject = Instantiate(instance.DamageText); break;
+                newObject = Instantiate(instance.DamageText, instance.damageTxtPool); break;
             default:newObject = null;
                 break;
         }
@@ -151,24 +157,24 @@ public class ObjectPool : MonoBehaviour
     public static GameObject GetObject<T>(T type)
     {
         if (instance.poolDict[type.ToString()].Count > 0)
+        {
             return instance.poolDict[type.ToString()].Dequeue();
+        }
         else 
             return CreateObject(type);         
     }
 
-    public static void ReturnObject<T>(T _type, GameObject obj)
+    public static void ReturnObject<T>(T type, GameObject obj)
     {
-        string type = _type.ToString();
-
-        if (instance.poolDict.ContainsKey(type))
+        if (instance.poolDict.ContainsKey(type.ToString()))
         {
-            instance.poolDict[type].Enqueue(obj);
+            instance.poolDict[type.ToString()].Enqueue(obj);
         }
         else
         {
             Queue<GameObject> objQueue = new();
             objQueue.Enqueue(obj);
-            instance.poolDict.Add(type, objQueue);
+            instance.poolDict.Add(type.ToString(), objQueue);
         }
        
     }

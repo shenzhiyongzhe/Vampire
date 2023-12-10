@@ -5,7 +5,9 @@ using UnityEngine;
 public abstract class WeaponSpawner : MonoBehaviour
 {
     [SerializeField] protected WeaponData weaponData;
-    protected Transform playerPos;
+    Transform player;
+
+    public Transform Player => player;
 
     protected float attackSpeed;
     protected int attackPower;
@@ -18,9 +20,11 @@ public abstract class WeaponSpawner : MonoBehaviour
     private void Awake()
     {
         Initialize();
-        playerPos = PlayerMove.GetInstance().transform;
     }
-
+    private void Start()
+    {
+        player = PlayerMove.Instance.transform;
+    }
     void Initialize()
     {
         attackSpeed = weaponData.AttackSpeed;

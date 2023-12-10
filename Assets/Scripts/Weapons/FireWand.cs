@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Bible : Weapon
+public class FireWand : Weapon
 {
-
     private void Update()
     {
         transform.RotateAround(Player.position, Vector3.forward, attackSpeed * Time.deltaTime);
