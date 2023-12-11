@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    private Dictionary<string, Queue<GameObject>> poolDict = new();
+    private Dictionary<string, Stack<GameObject>> poolDict = new();
     
   
     const int WeaponNum = 10;
     const int EnemyNum = 10;
     const int CrystalNum = 10;
-    const int damageTxtNum = 20;
+    const int DamageTxtNum = 20;
 
     static ObjectPool instance;
 
@@ -52,46 +52,46 @@ public class ObjectPool : MonoBehaviour
         {
             if (IsPlayer(characterType)) continue;
 
-            Queue<GameObject> newQue = new Queue<GameObject>();
+            Stack<GameObject> newStack = new Stack<GameObject>();
 
             for (int j = 0; j < EnemyNum; j++)
             {
-                newQue.Enqueue(CreateObject(characterType));
+                newStack.Push(CreateObject(characterType));
             }
 
-            poolDict.Add(characterType.ToString(), newQue);
+            poolDict.Add(characterType.ToString(), newStack);
         }
 
         foreach (WeaponData.WeaponType weaponType in Enum.GetValues(typeof(WeaponData.WeaponType)))
         {
-            Queue<GameObject> newQue = new Queue<GameObject>();
+            Stack<GameObject> newStack = new Stack<GameObject>();
 
             for (int j = 0; j < WeaponNum; j++)
             {
-                newQue.Enqueue(CreateObject(weaponType));
+                newStack.Push(CreateObject(weaponType));
             }
 
-            poolDict.Add(weaponType.ToString(), newQue);
+            poolDict.Add(weaponType.ToString(), newStack);
 
         }
 
         foreach(CrystalData.CrystalType crystalType in Enum.GetValues(typeof(CrystalData.CrystalType)))
         {
-            Queue<GameObject> newQue = new Queue<GameObject>();
+            Stack<GameObject> newStack = new Stack<GameObject>();
 
             for (int j = 0; j < CrystalNum; j++)
             {
-                newQue.Enqueue(CreateObject(crystalType));
+                newStack.Push(CreateObject(crystalType));
             }
 
-            poolDict.Add(crystalType.ToString(), newQue);
+            poolDict.Add(crystalType.ToString(), newStack);
         }
 
-        Queue<GameObject> damageQue = new Queue<GameObject>();
+        Stack<GameObject> damageQue = new Stack<GameObject>();
 
-        for (int j = 0; j < damageTxtNum; j++)
+        for (int j = 0; j < DamageTxtNum; j++)
         {
-            damageQue.Enqueue(CreateObject("damage"));
+            damageQue.Push(CreateObject("damage"));
         }
 
         poolDict.Add("damage", damageQue);
@@ -158,7 +158,7 @@ public class ObjectPool : MonoBehaviour
     {
         if (instance.poolDict[type.ToString()].Count > 0)
         {
-            return instance.poolDict[type.ToString()].Dequeue();
+            return instance.poolDict[type.ToString()].Pop();
         }
         else 
             return CreateObject(type);         
@@ -168,13 +168,13 @@ public class ObjectPool : MonoBehaviour
     {
         if (instance.poolDict.ContainsKey(type.ToString()))
         {
-            instance.poolDict[type.ToString()].Enqueue(obj);
+            instance.poolDict[type.ToString()].Push(obj);
         }
         else
         {
-            Queue<GameObject> objQueue = new();
-            objQueue.Enqueue(obj);
-            instance.poolDict.Add(type.ToString(), objQueue);
+            Stack<GameObject> objStack = new();
+            objStack.Push(obj);
+            instance.poolDict.Add(type.ToString(), objStack);
         }
        
     }

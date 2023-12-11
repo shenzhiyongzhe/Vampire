@@ -114,4 +114,6 @@ public class LevelUp : MonoBehaviour
     {
         return (AccessoryData.AccessoryType)Random.Range(0, System.Enum.GetValues(typeof(AccessoryData.AccessoryType)).Length); 
     }
+
+
 }

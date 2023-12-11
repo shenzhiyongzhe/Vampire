@@ -9,14 +9,13 @@ public class MagicWandSpawner : WeaponSpawner
     {
         while (true)
         {
-            for (int i = 0; i < weaponNum; i++)
+            for (int i = 0; i < WeaponNum; i++)
             {
                 GameObject obj = SpawnWeapon();
                 obj.transform.SetParent(transform, false);
-                obj.transform.position = new Vector3(Mathf.Cos(2 * Mathf.PI / weaponNum * i) * attackRange,
-                                                     Mathf.Sin(2 * Mathf.PI / weaponNum * i) * attackRange, 0) + Player.position;
+                obj.transform.position = Player.position;
             }
-            yield return new WaitForSeconds(cooldownTime + lastTime);
+            yield return new WaitForSeconds(CoolDownTime + LastTime);
         }
     }
 }

@@ -4,19 +4,29 @@ using UnityEngine;
 
 public abstract class WeaponSpawner : MonoBehaviour
 {
-    [SerializeField] protected WeaponData weaponData;
+    [SerializeField] WeaponData weaponData;
     Transform player;
 
     public Transform Player => player;
 
-    protected float attackSpeed;
-    protected int attackPower;
-    protected float lastTime;
-    protected float cooldownTime;
-    protected float attackRange;
-    protected int weaponNum;
-    int level = 0;
 
+
+    public float AttackSpeed { get; set; }
+    public int AttackPower { get; set; }
+    public float LastTime { get; set; }
+    public float CoolDownTime { get; set; }
+    public float AttackRange { get; set; }
+
+    public int WeaponNum {get; set;}
+
+    public int WeaponLevel { get; set;}
+
+
+    public void IncreaseLevel()
+    {
+        WeaponLevel++;
+  
+    }
     private void Awake()
     {
         Initialize();
@@ -27,18 +37,18 @@ public abstract class WeaponSpawner : MonoBehaviour
     }
     void Initialize()
     {
-        attackSpeed = weaponData.AttackSpeed;
-        attackPower = weaponData.AttackPower;
-        lastTime = weaponData.LastTime;
-        cooldownTime = weaponData.CooldownTime;
-        attackRange = weaponData.AttackRange;
-        weaponNum = weaponData.WeaponNum;
+        AttackSpeed = weaponData.AttackSpeed;
+        AttackPower = weaponData.AttackPower;
+        LastTime = weaponData.LastTime;
+        CoolDownTime = weaponData.CooldownTime;
+        AttackRange = weaponData.AttackRange;
+        WeaponNum = weaponData.WeaponNum;
     }
     protected GameObject SpawnWeapon()
     {
         GameObject obj = ObjectPool.GetObject(weaponData.WeaponName);
         obj.SetActive(true);
-        obj.GetComponent<Weapon>().SetParameters(weaponData, attackPower, cooldownTime, attackSpeed);
+        obj.GetComponent<Weapon>().SetParameters(weaponData, AttackPower, CoolDownTime, AttackSpeed);
         return obj;
     }
 
@@ -47,14 +57,12 @@ public abstract class WeaponSpawner : MonoBehaviour
         return weaponData.WeaponName;
     }
 
-    public int Level => level;
-    public void IncreaseLevel()
-    {
-        level++;
-    }
+  
     public void StartWeapon()
     {
         StartCoroutine(StartAttack());
     }
     protected abstract IEnumerator StartAttack();
+
+
 }

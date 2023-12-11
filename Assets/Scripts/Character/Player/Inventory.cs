@@ -79,16 +79,18 @@ public class Inventory : MonoBehaviour
                 break;
         }
 
+        WeaponData.WeaponType type = spawner.GetWeaponType();
         if (weaponInventory.ContainsKey(weaponType))
         {
-            //spawner.IncreaseLevel();
+            spawner.WeaponLevel++;
+            //为什么删除再添加，而不是直接修改？？？
             //weaponInventory.Remove(spawner.GetWeaponType());
             //weaponInventory.Add(spawner.GetWeaponType(), spawner.Level);
-            weaponInventory[weaponType]++;
+            weaponInventory[type] = spawner.WeaponLevel;
         }
         else
         {
-            weaponInventory.Add(spawner.GetWeaponType(), 1);
+            weaponInventory.Add(type, 1);
             spawner.StartWeapon();
         }
 
