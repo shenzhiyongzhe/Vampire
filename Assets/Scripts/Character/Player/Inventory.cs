@@ -33,6 +33,8 @@ public class Inventory : MonoBehaviour
         _instance = this;
         SlotInitialise();
         bible = GetComponent<BibleSpawner>();
+        weaponInventory.Add(WeaponData.WeaponType.Bible, 1);
+        ShowInventory();
         bible.StartWeapon();
     }
 
@@ -79,13 +81,10 @@ public class Inventory : MonoBehaviour
                 break;
         }
 
-        WeaponData.WeaponType type = spawner.GetWeaponType();
+        WeaponData.WeaponType type = spawner.GetWeaponType();   
         if (weaponInventory.ContainsKey(weaponType))
         {
-            spawner.WeaponLevel++;
-            //为什么删除再添加，而不是直接修改？？？
-            //weaponInventory.Remove(spawner.GetWeaponType());
-            //weaponInventory.Add(spawner.GetWeaponType(), spawner.Level);
+            spawner.UpgradeWeapon();
             weaponInventory[type] = spawner.WeaponLevel;
         }
         else

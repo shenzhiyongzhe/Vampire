@@ -15,7 +15,7 @@ MonoBehaviour:
   _weaponName: 1
   _parent: 0
   _attackPower: 100
-  _weaponNum: 6
+  _weaponNum: 1
   _attackSpeed: 60
   _attackRange: 4
   _cooldownTime: 0.01

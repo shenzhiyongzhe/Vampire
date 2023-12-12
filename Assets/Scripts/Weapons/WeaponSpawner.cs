@@ -21,12 +21,23 @@ public abstract class WeaponSpawner : MonoBehaviour
 
     public int WeaponLevel { get; set;}
 
-
-    public void IncreaseLevel()
+    public void UpgradeWeapon()
     {
         WeaponLevel++;
-  
+        switch (WeaponLevel)
+        {
+            case 2: WeaponNum++; break;
+            case 3: WeaponNum++; break;
+            case 4: AttackSpeed *= 1+0.2f; break;
+            case 5: AttackSpeed *= 1+0.3f; break;
+            case 6: AttackRange *= 1 + 0.3f; break;
+            case 7: WeaponNum++; break;
+            case 8: WeaponNum++; break;
+            case 9: WeaponNum++; break;
+        }
+        Debug.Log(weaponData.WeaponName.ToString() + ": " + WeaponLevel.ToString());
     }
+
     private void Awake()
     {
         Initialize();
@@ -43,6 +54,7 @@ public abstract class WeaponSpawner : MonoBehaviour
         CoolDownTime = weaponData.CooldownTime;
         AttackRange = weaponData.AttackRange;
         WeaponNum = weaponData.WeaponNum;
+        WeaponLevel = 1;
     }
     protected GameObject SpawnWeapon()
     {

@@ -19,16 +19,6 @@ public class LevelUp : MonoBehaviour
         public TextMeshProUGUI weaponLv;
         public GameObject selectedArrow;
         public Button btn;
-
-        //public WeaponSlot(Image icon, TextMeshProUGUI name, TextMeshProUGUI desc, TextMeshProUGUI lv, GameObject selectedArrow, Button btn)
-        //{
-        //    weaponIcon = icon;
-        //    weaponName = name;
-        //    description = desc;
-        //    weaponLv = lv;
-        //    this.selectedArrow = selectedArrow;
-        //    this.btn = btn;
-        //}
     }
 
     const int slotNum = 3;
@@ -69,7 +59,7 @@ public class LevelUp : MonoBehaviour
                 int level = 1;
                 do
                     weapon = ItemAssets.Instance.GetWeaponData(GetRandomWeapon());
-                while (isDuplictated.Contains(weapon.WeaponName.ToString()));
+                while (isDuplictated.Contains(weapon.WeaponName.ToString()) && (!Inventory.WeaponInventory.ContainsKey(weapon.WeaponName) || Inventory.WeaponInventory[weapon.WeaponName] <9));
                 isDuplictated.Add(weapon.WeaponName.ToString());
                 item.weaponIcon.sprite = weapon.WeaponSprite;
                 item.weaponName.text = weapon.WeaponName.ToString();
@@ -89,7 +79,7 @@ public class LevelUp : MonoBehaviour
                 int level = 1;
                 do
                     accessory = ItemAssets.Instance.GetAccessoryData(GetRandomAccessory());
-                while (isDuplictated.Contains(accessory.AccessoryName.ToString()));
+                while (isDuplictated.Contains(accessory.AccessoryName.ToString()) && (!Inventory.AccessoryInventory.ContainsKey(accessory.AccessoryName) || Inventory.AccessoryInventory[accessory.AccessoryName] < 6));
                 isDuplictated.Add(accessory.AccessoryName.ToString());
                 item.weaponIcon.sprite = accessory.AccessorySprite;
                 item.weaponName.text=accessory.AccessoryName.ToString();
