@@ -8,7 +8,9 @@ public class LevelUp : MonoBehaviour
 {
     [SerializeField] RectTransform levelUpWindow;
     [SerializeField] GameObject weaponSlotTemplete;
+    [SerializeField] TMP_Text lvText;
     WeaponSlot[] weaponSlots = new WeaponSlot[slotNum];
+    //bool levelUpTime = false;
 
 
     struct WeaponSlot
@@ -18,7 +20,7 @@ public class LevelUp : MonoBehaviour
         public TextMeshProUGUI description;
         public TextMeshProUGUI weaponLv;
         public GameObject selectedArrow;
-        public Button btn;
+        public UnityEngine.UI.Button btn;
     }
 
     const int slotNum = 3;
@@ -29,8 +31,11 @@ public class LevelUp : MonoBehaviour
     }
     public void OnLevelUp()
     {
+        Player.Instance.PlayerLv++;
         levelUpWindow.gameObject.SetActive(true);
         InsertData();
+        lvText.text = $"等级：{Player.Instance.PlayerLv}";
+        Time.timeScale = 0;
     }
 
     void InstantiateWeaponSlot()
@@ -45,7 +50,7 @@ public class LevelUp : MonoBehaviour
             weaponSlots[i].description = slot.transform.Find("Description").GetComponent<TextMeshProUGUI>();
             weaponSlots[i].weaponLv = slot.transform.Find("Level").GetComponent<TextMeshProUGUI>();
             weaponSlots[i].selectedArrow = slot.transform.Find("Select Arrow").gameObject;
-            weaponSlots[i].btn = slot.transform.Find("Button").GetComponent<Button>();
+            weaponSlots[i].btn = slot.transform.Find("Button").GetComponent<UnityEngine.UI.Button>();
         }
     }
     void InsertData()
@@ -59,7 +64,9 @@ public class LevelUp : MonoBehaviour
                 int level = 1;
                 do
                     weapon = ItemAssets.Instance.GetWeaponData(GetRandomWeapon());
-                while (isDuplictated.Contains(weapon.WeaponName.ToString()) && (!Inventory.WeaponInventory.ContainsKey(weapon.WeaponName) || Inventory.WeaponInventory[weapon.WeaponName] <9));
+                while (isDuplictated.Contains(weapon.WeaponName.ToString()) || (Inventory.WeaponInventory.ContainsKey(weapon.WeaponName) && Inventory.WeaponInventory[weapon.WeaponName] >= 9));
+                     
+                   
                 isDuplictated.Add(weapon.WeaponName.ToString());
                 item.weaponIcon.sprite = weapon.WeaponSprite;
                 item.weaponName.text = weapon.WeaponName.ToString();
@@ -71,6 +78,7 @@ public class LevelUp : MonoBehaviour
                 {
                     Inventory.Instance.AddWeapon(weapon.WeaponName);
                     levelUpWindow.gameObject.SetActive(false);
+                    Time.timeScale = 1;
                 });
             }
             else
@@ -91,6 +99,7 @@ public class LevelUp : MonoBehaviour
                 {
                     Inventory.Instance.AddAccessory(accessory.AccessoryName);
                     levelUpWindow.gameObject.SetActive(false);
+                    Time.timeScale = 1;
                 });
             }
         }

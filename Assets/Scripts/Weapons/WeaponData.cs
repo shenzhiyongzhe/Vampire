@@ -9,30 +9,28 @@ public class WeaponData : ScriptableObject
          Axe, Bible, Lightning, MagicWand, FireWand, Whip, 
     }
 
-    public enum Parent
-    {
-        Self, Player
-    }
+    [SerializeField] WeaponType weaponName;
+    [SerializeField] int attackPower;
+    [SerializeField] int weaponNum;
+    [SerializeField] float attackSpeed;
+    [SerializeField] float attackRange;
+    [SerializeField] float cooldownTime;
+    [SerializeField] float lastTime;
+    [SerializeField] float flightSpeed;
+    [SerializeField] Sprite weaponSprite;
+    [SerializeField] string description;
 
-    [SerializeField] WeaponType _weaponName;
-    [SerializeField] Parent _parent;
-    [SerializeField] int _attackPower;
-    [SerializeField] int _weaponNum;
-    [SerializeField] float _attackSpeed;
-    [SerializeField] float _attackRange;
-    [SerializeField] float _cooldownTime;
-    [SerializeField] float _lastTime;
-    [SerializeField] Sprite _weaponSprite;
-    [SerializeField] string _description;
 
-    public WeaponType WeaponName => _weaponName; 
-    public Parent GetParent => _parent;
-    public int AttackPower => _attackPower;
-    public int WeaponNum => _weaponNum;
-    public float AttackSpeed => _attackSpeed;
-    public float AttackRange => _attackRange;
-    public float CooldownTime => _cooldownTime;
-    public float LastTime => _lastTime;
-    public Sprite WeaponSprite => _weaponSprite;
-    public string Description => _description;
+    public WeaponType WeaponName => weaponName;
+    public int AttackPower => attackPower;
+    public int WeaponNum => weaponNum;
+    public float AttackSpeed => attackSpeed;
+    public float AttackRange => attackRange;
+    public float CoolDownTime => cooldownTime;
+    public float LastTime => lastTime;
+    public float FlightSpeed => flightSpeed;
+    public Sprite WeaponSprite => weaponSprite;
+    public string Description => description;
+
+
 }

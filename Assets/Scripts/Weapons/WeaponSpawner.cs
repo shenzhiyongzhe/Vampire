@@ -7,36 +7,17 @@ public abstract class WeaponSpawner : MonoBehaviour
     [SerializeField] WeaponData weaponData;
     Transform player;
 
-    public Transform Player => player;
-
-
+    public Transform PlayerMove => player;
 
     public float AttackSpeed { get; set; }
     public int AttackPower { get; set; }
     public float LastTime { get; set; }
     public float CoolDownTime { get; set; }
     public float AttackRange { get; set; }
-
+    public  float FlightSpeed { get; private set; }
     public int WeaponNum {get; set;}
-
     public int WeaponLevel { get; set;}
 
-    public void UpgradeWeapon()
-    {
-        WeaponLevel++;
-        switch (WeaponLevel)
-        {
-            case 2: WeaponNum++; break;
-            case 3: WeaponNum++; break;
-            case 4: AttackSpeed *= 1+0.2f; break;
-            case 5: AttackSpeed *= 1+0.3f; break;
-            case 6: AttackRange *= 1 + 0.3f; break;
-            case 7: WeaponNum++; break;
-            case 8: WeaponNum++; break;
-            case 9: WeaponNum++; break;
-        }
-        Debug.Log(weaponData.WeaponName.ToString() + ": " + WeaponLevel.ToString());
-    }
 
     private void Awake()
     {
@@ -44,14 +25,15 @@ public abstract class WeaponSpawner : MonoBehaviour
     }
     private void Start()
     {
-        player = PlayerMove.Instance.transform;
+        player = global::PlayerMove.Instance.transform;
     }
     void Initialize()
     {
         AttackSpeed = weaponData.AttackSpeed;
         AttackPower = weaponData.AttackPower;
         LastTime = weaponData.LastTime;
-        CoolDownTime = weaponData.CooldownTime;
+        CoolDownTime = weaponData.CoolDownTime;
+        FlightSpeed = weaponData.FlightSpeed;
         AttackRange = weaponData.AttackRange;
         WeaponNum = weaponData.WeaponNum;
         WeaponLevel = 1;
@@ -59,22 +41,31 @@ public abstract class WeaponSpawner : MonoBehaviour
     protected GameObject SpawnWeapon()
     {
         GameObject obj = ObjectPool.GetObject(weaponData.WeaponName);
+        obj.GetComponent<Weapon>().SetParameters(weaponData, AttackPower, CoolDownTime, LastTime, AttackSpeed);
         obj.SetActive(true);
-        obj.GetComponent<Weapon>().SetParameters(weaponData, AttackPower, CoolDownTime, AttackSpeed);
         return obj;
     }
-
+    public WeaponData GetWeaponData()
+    {
+        return weaponData;
+    }
     public WeaponData.WeaponType GetWeaponType()
     {
         return weaponData.WeaponName;
     }
 
-  
+    protected Coroutine weaponCoroutine;
+    protected bool IsMaxLevel { get; set; } = false;
     public void StartWeapon()
     {
-        StartCoroutine(StartAttack());
+        weaponCoroutine =  StartCoroutine(StartAttack());
+    }
+    public void ReStartWeapon()
+    {
+        StopCoroutine(weaponCoroutine);
+        StartWeapon();
     }
     protected abstract IEnumerator StartAttack();
 
-
+    public abstract void UpgradeWeapon();
 }

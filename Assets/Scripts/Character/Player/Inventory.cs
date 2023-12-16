@@ -32,10 +32,12 @@ public class Inventory : MonoBehaviour
         accessoryInventory = new();
         _instance = this;
         SlotInitialise();
+
         bible = GetComponent<BibleSpawner>();
         weaponInventory.Add(WeaponData.WeaponType.Bible, 1);
-        ShowInventory();
         bible.StartWeapon();
+
+        ShowInventory();
     }
 
     private void SlotInitialise()
@@ -85,7 +87,8 @@ public class Inventory : MonoBehaviour
         if (weaponInventory.ContainsKey(weaponType))
         {
             spawner.UpgradeWeapon();
-            weaponInventory[type] = spawner.WeaponLevel;
+            weaponInventory[weaponType] = spawner.WeaponLevel;
+            Debug.Log($" {weaponType}: {spawner.WeaponLevel}, {weaponInventory[weaponType]}");
         }
         else
         {

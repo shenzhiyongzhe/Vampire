@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e930eff1da31b0343b562b7642037ea0, type: 3}
   m_Name: Lightning
   m_EditorClassIdentifier: 
-  _weaponName: 2
-  _parent: 0
-  _attackPower: 1
-  _weaponNum: 4
-  _attackSpeed: 1
-  _attackRange: 4
-  _cooldownTime: 1
-  _lastTime: 1
-  _weaponSprite: {fileID: 21300000, guid: 53442ad7539123846b7c20883b9257f7, type: 3}
-  _description: 
+  weaponName: 2
+  attackPower: 1
+  weaponNum: 1
+  attackSpeed: 1
+  attackRange: 3
+  cooldownTime: 1
+  lastTime: 3
+  flightSpeed: 0
+  weaponSprite: {fileID: 21300000, guid: 53442ad7539123846b7c20883b9257f7, type: 3}
+  description: "\u91CA\u653E\u4E00\u9053\u95EA\u7535\uFF0C\u653B\u51FB\u968F\u673A\u654C\u4EBA"

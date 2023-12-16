@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -6,39 +7,87 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] float distance;
     Transform player;
-    void Start()
-    {
-        player = PlayerMove.Instance.transform;
 
-        StartCoroutine(LoopSpawnEnemy());
+    [SerializeField] public List<GameObject> activeEnemyList = new();
+    public static EnemySpawner Instance { get; private set; }
+
+
+    float gameTime;
+    void Awake()
+    {
+        Instance = this;
+        player = PlayerMove.Instance.transform;
+        gameTime = Mathf.FloorToInt(GameTime.GameDuration / 60f);
+
+        //StartCoroutine(LoopSpawnEnemy());
+        StartCoroutine(ListChecker());
     }
-    void SpawnEnemy(CharacterData.CharacterType enemyType)
+    public void SpawnEnemy(CharacterData.CharacterType enemyType)
     {
         GameObject obj = ObjectPool.GetObject(enemyType);
         float rand = Random.value;
         Vector3 atCircle = new Vector3(Mathf.Cos(2 * Mathf.PI * rand), Mathf.Sin(2 * Mathf.PI * rand), 0) * distance;
         obj.transform.position = atCircle + player.position;
         obj.SetActive(true);
-        //return obj;
+        activeEnemyList.Add(obj);
     }
 
     IEnumerator LoopSpawnEnemy()
     {
         while (true)
         {
+            switch (GetEnemyStage())
+            {
+                default: 
+                case 1: SpawnEnemy(CharacterData.CharacterType.FlyingEye); break;
+                case 2: SpawnEnemy(CharacterData.CharacterType.Mushroom); break; 
+                case 3: SpawnEnemy(CharacterData.CharacterType.Mushroom); break;
+                case 4: SpawnEnemy(CharacterData.CharacterType.Mushroom); break;
+            }
             //float rand = Random.value * 3;
-            //SpawnFlyingEye();
-            SpawnMushroom();
-            yield return new WaitForSeconds(1f);
+
+            yield return new WaitForSeconds(3f);
         }
     }
-    void SpawnFlyingEye()
+
+
+    int GetEnemyStage()
     {
-        SpawnEnemy(CharacterData.CharacterType.FlyingEye);
+        if (gameTime < 2f)
+            return 1;
+        else if (gameTime > 2f && gameTime < 3f)
+            return 2;
+        else if (gameTime > 3f && gameTime < 4f)
+            return 3;
+        else
+            return 4;
     }
 
-    void SpawnMushroom()
+    public Vector3 GetRandomPos()
     {
-        SpawnEnemy(CharacterData.CharacterType.Mushroom);
+        return activeEnemyList[(int)Mathf.Floor(Random.Range(0, activeEnemyList.Count))].transform.position;
+    }
+    public Vector3 GetNearestPos()
+    {
+        float[] min = { 0, int.MaxValue };
+        for(int i = 0; i < activeEnemyList.Count; i++)
+        {
+            if (min[1] > (activeEnemyList[i].transform.position - player.position).sqrMagnitude)
+            {
+                min[0] = i;
+                min[1] = (activeEnemyList[i].transform.position - player.position).sqrMagnitude;
+            }
+        }
+        return activeEnemyList[(int)min[0]].transform.position;
+    }
+
+    IEnumerator ListChecker()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            activeEnemyList.RemoveAll(obj => obj.activeSelf == false);
+        }
     }
 }

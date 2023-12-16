@@ -21,11 +21,12 @@ public class Weapon : MonoBehaviour
     {
         player = PlayerMove.Instance.transform;
     }
-    public void SetParameters(WeaponData weaponData, int attackPower, float cooldownTime, float attackSpeed)
+    public void SetParameters(WeaponData weaponData, int attackPower, float cooldownTime, float lastTime, float attackSpeed)
     {
         this.weaponData = weaponData;
         this.attackPower = attackPower;
         this.cooldownTime = cooldownTime;
+        this.lastTime = lastTime;
         this.attackSpeed = attackSpeed;
     }
     //IEnumerator 
@@ -39,14 +40,14 @@ public class Weapon : MonoBehaviour
     }
     protected virtual IEnumerator StartDestroy()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(lastTime);
 
         InactivateWeapon();
     }
     protected void InactivateWeapon()
     {
-        ObjectPool.ReturnObject(WeaponData.WeaponType.Bible, gameObject);
         gameObject.SetActive(false);
+        ObjectPool.ReturnObject(weaponData.WeaponName, gameObject);
     }
 
 }

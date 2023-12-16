@@ -35,11 +35,11 @@ public class ObjectPool : MonoBehaviour
 
     [SerializeField] GameObject DamageText;
 
-    [SerializeField] Transform weaponPool;
-    [SerializeField] Transform crystalPool;
-    [SerializeField] Transform enemyPool;
-    [SerializeField] Transform meleeWeapon;
-    [SerializeField] Transform damageTxtPool;
+    [SerializeField] GameObject weaponPool;
+    [SerializeField] GameObject crystalPool;
+    [SerializeField] GameObject enemyPool;
+    [SerializeField] GameObject meleeWeapon;
+    [SerializeField] GameObject damageTxtPool;
     private void Awake()
     {
         instance = this;
@@ -106,47 +106,47 @@ public class ObjectPool : MonoBehaviour
         switch (type)
         {
             case CharacterData.CharacterType.FlyingEye:
-                newObject = Instantiate(instance.flyingEyePrefab, instance.enemyPool);
+                newObject = Instantiate(instance.flyingEyePrefab, instance.enemyPool.transform);
                 break;
             //case CharacterData.CharacterType.Goblin:
             //    newObject = Instantiate(instance.goblinPrefab);
             //    break;
             case CharacterData.CharacterType.Mushroom:
-                newObject = Instantiate(instance.mushroomPrefab, instance.enemyPool);
+                newObject = Instantiate(instance.mushroomPrefab, instance.enemyPool.transform);
                 break;
             //case CharacterData.CharacterType.Skeleton:
             //    newObject = Instantiate(instance.skeletonPrefab);
             //    break;
 
             case WeaponData.WeaponType.Whip:
-                newObject = Instantiate(instance.whipPrefab, instance.weaponPool);
+                newObject = Instantiate(instance.whipPrefab, instance.weaponPool.transform);
                 break;
             case WeaponData.WeaponType.Bible:
-                newObject = Instantiate(instance.biblePrefab, instance.meleeWeapon);
+                newObject = Instantiate(instance.biblePrefab, instance.meleeWeapon.transform);
                 break;
             case WeaponData.WeaponType.Axe:
-                newObject = Instantiate(instance.axePrefab, instance.weaponPool);
+                newObject = Instantiate(instance.axePrefab, instance.weaponPool.transform);
                 break;
             case WeaponData.WeaponType.FireWand:
-                newObject = Instantiate(instance.fireWandPrefab, instance.weaponPool);
+                newObject = Instantiate(instance.fireWandPrefab, instance.weaponPool.transform);
                 break;
             case WeaponData.WeaponType.MagicWand:
-                newObject = Instantiate(instance.magicWandPrefab, instance.weaponPool);
+                newObject = Instantiate(instance.magicWandPrefab, instance.weaponPool.transform);
                 break;
             case WeaponData.WeaponType.Lightning:
-                newObject = Instantiate(instance.lightningPrefab, instance.weaponPool);
+                newObject = Instantiate(instance.lightningPrefab, instance.weaponPool.transform);
                 break;
 
 
             case CrystalData.CrystalType.BlueCrystal:
-                newObject = Instantiate(instance.blueCrystalPrefab, instance.crystalPool); break;
+                newObject = Instantiate(instance.blueCrystalPrefab, instance.crystalPool.transform); break;
             case CrystalData.CrystalType.GreenCrystal:
-                newObject = Instantiate(instance.greenCrystalPrefab, instance.crystalPool); break;
+                newObject = Instantiate(instance.greenCrystalPrefab, instance.crystalPool.transform); break;
             case CrystalData.CrystalType.RedCrystal:
-                newObject = Instantiate(instance.redCrystalPrefab, instance.crystalPool); break;
+                newObject = Instantiate(instance.redCrystalPrefab, instance.crystalPool.transform); break;
 
             case "damage":
-                newObject = Instantiate(instance.DamageText, instance.damageTxtPool); break;
+                newObject = Instantiate(instance.DamageText, instance.damageTxtPool.transform); break;
             default:newObject = null;
                 break;
         }

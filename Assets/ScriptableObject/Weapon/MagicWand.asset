@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e930eff1da31b0343b562b7642037ea0, type: 3}
   m_Name: MagicWand
   m_EditorClassIdentifier: 
-  _weaponName: 3
-  _parent: 0
-  _attackPower: 1
-  _weaponNum: 4
-  _attackSpeed: 1
-  _attackRange: 4
-  _cooldownTime: 1
-  _lastTime: 1
-  _weaponSprite: {fileID: 21300000, guid: 69e29003cde6e7340a6fb22a30653937, type: 3}
-  _description: 
+  weaponName: 3
+  attackPower: 1
+  weaponNum: 1
+  attackSpeed: 1
+  attackRange: 4
+  cooldownTime: 1
+  lastTime: 10
+  flightSpeed: 0
+  weaponSprite: {fileID: 21300000, guid: 69e29003cde6e7340a6fb22a30653937, type: 3}
+  description: "\u653B\u51FB\u8DDD\u79BB\u6700\u8FD1\u7684\u654C\u4EBA"

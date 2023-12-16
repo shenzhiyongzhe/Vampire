@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] GameObject pauseWindows;
     private InputController inputController;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -30,6 +31,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         move = inputController.Player.Move.ReadValue<Vector2>();
+
         transform.position += move * moveSpeed * Time.deltaTime;
         if(move.x != 0 || move.y != 0)
         {

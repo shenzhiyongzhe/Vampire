@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _HP;
-
+    [SerializeField] Slider expBar;
     LevelUp levelUp;
 
     int playerLv = 0;
@@ -16,15 +17,15 @@ public class Player : MonoBehaviour
     }
 
     public int LvUpExp => levelUpExp;
-    public int PlayerLv => playerLv;
+    public int PlayerLv { get; set; } = 0;
 
-    public static Player instance;
+    public static Player Instance { get; private set; }
+
     private void Awake()
     {
-        instance = this;
+        Instance = this;
         levelUpExp = playerLv * 10 + 30;
         levelUp = GetComponent<LevelUp>();
-
     }
 
     public int PlayerExp
@@ -35,15 +36,13 @@ public class Player : MonoBehaviour
             if(value >= levelUpExp)
             {
                 _playerExp = 0;
-                playerLv++;
                 levelUp.OnLevelUp();
-
             }
             else
             {
                 _playerExp = value; 
             }
-
+            expBar.value = (float)PlayerExp / LvUpExp;
         }
     }
 

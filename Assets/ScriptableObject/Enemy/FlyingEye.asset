@@ -18,4 +18,4 @@ MonoBehaviour:
   _healthPoint: 10
   _attackPower: 5
   _defencePower: 5
-  _moveSpeed: 3
+  _moveSpeed: 1

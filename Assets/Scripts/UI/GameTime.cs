@@ -7,7 +7,8 @@ public class GameTime : MonoBehaviour
 {
     TMP_Text tmp_text;
 
-    float gameTime;
+    static float gameTime;
+    public static float GameDuration => gameTime;
     // Start is called before the first frame update
     void Start()
     {
