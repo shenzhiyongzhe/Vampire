@@ -65,10 +65,12 @@ public class EnemySpawner : MonoBehaviour
 
     public Vector3 GetRandomPos()
     {
+        if (activeEnemyList.Count == 0) return Vector3.zero;
         return activeEnemyList[(int)Mathf.Floor(Random.Range(0, activeEnemyList.Count))].transform.position;
     }
-    public Vector3 GetNearestPos()
+    public GameObject GetNearestPos()
     {
+        if (activeEnemyList.Count == 0) return null;
         float[] min = { 0, int.MaxValue };
         for(int i = 0; i < activeEnemyList.Count; i++)
         {
@@ -78,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
                 min[1] = (activeEnemyList[i].transform.position - player.position).sqrMagnitude;
             }
         }
-        return activeEnemyList[(int)min[0]].transform.position;
+        return activeEnemyList[(int)min[0]];
     }
 
     IEnumerator ListChecker()

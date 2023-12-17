@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class Lightning : Weapon
 {
-    private void Update()
+    private void OnDisable()
     {
-        transform.RotateAround(Player.position, Vector3.forward, attackSpeed * Time.deltaTime);
-        transform.Rotate(new Vector3(0, 0, -1), attackSpeed * Time.deltaTime);
+        transform.localScale = Vector3.one;
     }
+
+
 
 }

@@ -5,10 +5,10 @@ public class Weapon : MonoBehaviour
 {
     WeaponData weaponData;
 
-    protected float attackSpeed;
-    public int attackPower;
-    protected float cooldownTime;
-    float lastTime;
+    protected float AttackSpeed { get; private set; }
+    public int AttackPower { get; private set; }
+    protected float CoolDownTime { get; private set; }
+    protected float LastTime { get; private set; }
 
     private Transform player;
     public Transform Player => player;
@@ -24,23 +24,23 @@ public class Weapon : MonoBehaviour
     public void SetParameters(WeaponData weaponData, int attackPower, float cooldownTime, float lastTime, float attackSpeed)
     {
         this.weaponData = weaponData;
-        this.attackPower = attackPower;
-        this.cooldownTime = cooldownTime;
-        this.lastTime = lastTime;
-        this.attackSpeed = attackSpeed;
-    }
+        AttackPower = attackPower;
+        CoolDownTime = cooldownTime;
+        LastTime = lastTime;
+        AttackSpeed = attackSpeed;
+    }   
     //IEnumerator 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy")
         {
-            collision.GetComponent<Enemy>().GetHurt(attackPower);
+            collision.GetComponent<Enemy>().GetHurt(AttackPower);
         }
     }
     protected virtual IEnumerator StartDestroy()
     {
-        yield return new WaitForSeconds(lastTime);
+        yield return new WaitForSeconds(LastTime);
 
         InactivateWeapon();
     }

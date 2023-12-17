@@ -7,15 +7,18 @@ public class LightningSpawner : WeaponSpawner
 
     protected override IEnumerator StartAttack()
     {
+        EnemySpawner enemySpawner = EnemySpawner.Instance;
         while (true)
         {
             for (int i = 0; i < WeaponNum; i++)
             {
+                if(enemySpawner.activeEnemyList.Count == 0) { break; }
                 GameObject obj = SpawnWeapon();
-                obj.transform.SetParent(transform, false);
-                obj.transform.position = PlayerMove.position;
+                obj.transform.position = enemySpawner.GetRandomPos();
+                obj.transform.localScale = AttackRange * Vector3.one;
+                obj.SetActive(true);
             }
-            yield return new WaitForSeconds(CoolDownTime + LastTime);
+            yield return new WaitForSeconds(CoolDownTime);
         }
     }
 
@@ -26,15 +29,15 @@ public class LightningSpawner : WeaponSpawner
         {
             default:
                 break;
-            case 1: WeaponNum++; break;
-            case 2: WeaponNum++; break;
+            case 2: 
             case 3: WeaponNum++; break;
-            case 4: WeaponNum++; break;
-            case 5: WeaponNum++; break;
-            case 6: WeaponNum++; break;
+            case 4: 
+            case 5: AttackRange *= 1.4f; break;
+            case 6: AttackRange *= 1.4f; break;
             case 7: WeaponNum++; break;
             case 8: WeaponNum++; break;
             case 9: WeaponNum++; break;
         }
+        ReStartWeapon();
     }
 }

@@ -6,6 +6,7 @@ public class Whip : Weapon
     private void OnDisable()
     {
         gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        transform.rotation = Quaternion.identity;
     }
 
 }

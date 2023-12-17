@@ -24,6 +24,8 @@ public class CharacterData : ScriptableObject
     {
         FlyingEye,
         Mushroom,
+        Goblin,
+        Skeleton,
         Knight,
         Bandit
     }

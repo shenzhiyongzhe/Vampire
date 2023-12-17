@@ -13,7 +13,7 @@ public class FireWandSpawner : WeaponSpawner
 
             if (enemySpawner.activeEnemyList.Count > 0)
             {
-                Vector2 destination = (enemySpawner.GetNearestPos() - transform.position).normalized;
+                Vector2 destination = (enemySpawner.GetNearestPos().transform.position - transform.position).normalized;
                 float newSpreadAngle = 0f;
 
                 for (int i = 0; i < WeaponNum; ++i)
@@ -53,7 +53,7 @@ public class FireWandSpawner : WeaponSpawner
         obj.transform.rotation = Quaternion.Euler(0, 0, angle - 8.5f);
         obj.GetComponent<Weapon>().SetParameters(GetWeaponData(), AttackPower, CoolDownTime, LastTime, AttackSpeed);
         obj.SetActive(true);
-        obj.GetComponent<Rigidbody2D>().AddForce(3000f * FlightSpeed * (destination - (Vector2)PlayerMove.position).normalized, ForceMode2D.Force);
+        obj.GetComponent<Rigidbody2D>().AddForce(3000f * AttackSpeed * (destination - (Vector2)PlayerMove.position).normalized, ForceMode2D.Force);
 
     }
 

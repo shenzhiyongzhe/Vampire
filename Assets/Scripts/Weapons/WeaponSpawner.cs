@@ -4,18 +4,16 @@ using UnityEngine;
 
 public abstract class WeaponSpawner : MonoBehaviour
 {
-    [SerializeField] WeaponData weaponData;
+    [SerializeField] private WeaponData weaponData;
     Transform player;
 
     public Transform PlayerMove => player;
-
     public float AttackSpeed { get; set; }
     public int AttackPower { get; set; }
     public float LastTime { get; set; }
     public float CoolDownTime { get; set; }
     public float AttackRange { get; set; }
-    public  float FlightSpeed { get; private set; }
-    public int WeaponNum {get; set;}
+    public int WeaponNum { get; set;}
     public int WeaponLevel { get; set;}
 
 
@@ -33,7 +31,6 @@ public abstract class WeaponSpawner : MonoBehaviour
         AttackPower = weaponData.AttackPower;
         LastTime = weaponData.LastTime;
         CoolDownTime = weaponData.CoolDownTime;
-        FlightSpeed = weaponData.FlightSpeed;
         AttackRange = weaponData.AttackRange;
         WeaponNum = weaponData.WeaponNum;
         WeaponLevel = 1;
@@ -42,7 +39,6 @@ public abstract class WeaponSpawner : MonoBehaviour
     {
         GameObject obj = ObjectPool.GetObject(weaponData.WeaponName);
         obj.GetComponent<Weapon>().SetParameters(weaponData, AttackPower, CoolDownTime, LastTime, AttackSpeed);
-        obj.SetActive(true);
         return obj;
     }
     public WeaponData GetWeaponData()

@@ -16,11 +16,12 @@ public class ObjectPool : MonoBehaviour
     const int DamageTxtNum = 20;
 
     static ObjectPool instance;
+    public static ObjectPool Instance => instance;
 
     [SerializeField] GameObject flyingEyePrefab;
-    //[SerializeField] GameObject goblinPrefab;
+    [SerializeField] GameObject goblinPrefab;
     [SerializeField] GameObject mushroomPrefab;
-    //[SerializeField] GameObject skeletonPrefab;
+    [SerializeField] GameObject skeletonPrefab;
 
     [SerializeField] GameObject whipPrefab;
     [SerializeField] GameObject biblePrefab;
@@ -108,15 +109,15 @@ public class ObjectPool : MonoBehaviour
             case CharacterData.CharacterType.FlyingEye:
                 newObject = Instantiate(instance.flyingEyePrefab, instance.enemyPool.transform);
                 break;
-            //case CharacterData.CharacterType.Goblin:
-            //    newObject = Instantiate(instance.goblinPrefab);
-            //    break;
+            case CharacterData.CharacterType.Goblin:
+                newObject = Instantiate(instance.goblinPrefab);
+                break;
             case CharacterData.CharacterType.Mushroom:
                 newObject = Instantiate(instance.mushroomPrefab, instance.enemyPool.transform);
                 break;
-            //case CharacterData.CharacterType.Skeleton:
-            //    newObject = Instantiate(instance.skeletonPrefab);
-            //    break;
+            case CharacterData.CharacterType.Skeleton:
+                newObject = Instantiate(instance.skeletonPrefab);
+                break;
 
             case WeaponData.WeaponType.Whip:
                 newObject = Instantiate(instance.whipPrefab, instance.weaponPool.transform);

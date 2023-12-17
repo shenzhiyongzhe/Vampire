@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Whip
   m_EditorClassIdentifier: 
   weaponName: 5
-  attackPower: 1
+  attackPower: 10
   weaponNum: 1
   attackSpeed: 1
-  attackRange: 5
-  cooldownTime: 2
+  attackRange: 1
+  cooldownTime: 4
   lastTime: 2
-  flightSpeed: 0
   weaponSprite: {fileID: 21300000, guid: d2b3ef36966bd70488e264f6f30c8951, type: 3}
   description: "\u6BCF\u9694\u4E00\u6BB5\u65F6\u95F4\u653B\u51FB\u524D\u65B9\u654C\u4EBA"

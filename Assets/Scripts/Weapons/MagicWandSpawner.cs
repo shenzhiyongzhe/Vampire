@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class MagicWandSpawner : WeaponSpawner
 {
-
     protected override IEnumerator StartAttack()
     {
+        EnemySpawner enemySpawner = EnemySpawner.Instance;
         while (true)
         {
             for (int i = 0; i < WeaponNum; i++)
             {
+                if (enemySpawner.activeEnemyList.Count == 0) break;
                 GameObject obj = SpawnWeapon();
-                obj.transform.SetParent(transform, false);
                 obj.transform.position = PlayerMove.position;
+                obj.SetActive(true);
+                
             }
-            yield return new WaitForSeconds(CoolDownTime + LastTime);
+            yield return new WaitForSeconds(CoolDownTime);
         }
     }
+
+
     public override void UpgradeWeapon()
     {
         WeaponLevel++;
@@ -25,8 +29,7 @@ public class MagicWandSpawner : WeaponSpawner
         {
             default:
                 break;
-            case 1: WeaponNum++; break;
-            case 2: WeaponNum++; break;
+            case 2: 
             case 3: WeaponNum++; break;
             case 4: WeaponNum++; break;
             case 5: WeaponNum++; break;

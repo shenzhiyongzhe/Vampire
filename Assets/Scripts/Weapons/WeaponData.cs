@@ -16,7 +16,6 @@ public class WeaponData : ScriptableObject
     [SerializeField] float attackRange;
     [SerializeField] float cooldownTime;
     [SerializeField] float lastTime;
-    [SerializeField] float flightSpeed;
     [SerializeField] Sprite weaponSprite;
     [SerializeField] string description;
 
@@ -28,7 +27,6 @@ public class WeaponData : ScriptableObject
     public float AttackRange => attackRange;
     public float CoolDownTime => cooldownTime;
     public float LastTime => lastTime;
-    public float FlightSpeed => flightSpeed;
     public Sprite WeaponSprite => weaponSprite;
     public string Description => description;
 

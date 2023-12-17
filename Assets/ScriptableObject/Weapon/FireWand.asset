@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: FireWand
   m_EditorClassIdentifier: 
   weaponName: 4
-  attackPower: 100
+  attackPower: 10
   weaponNum: 1
   attackSpeed: 1
   attackRange: 3
   cooldownTime: 1
   lastTime: 10
-  flightSpeed: 0.1
   weaponSprite: {fileID: 21300000, guid: 845e9df29ac6bfe47b3e2925c1804fe9, type: 3}
   description: "\u53D1\u5C04\u4E00\u4E2A\u706B\u7403\uFF0C\u968F\u673A\u653B\u51FB\u654C\u4EBA"

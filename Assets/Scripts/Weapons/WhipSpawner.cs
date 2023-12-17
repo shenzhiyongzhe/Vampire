@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WhipSpawner : WeaponSpawner
 {
-
     protected override IEnumerator StartAttack()
     {
         while (true)
@@ -12,19 +11,27 @@ public class WhipSpawner : WeaponSpawner
             for (int i = 0; i < WeaponNum; i++)
             {
                 GameObject obj = SpawnWeapon();
+                obj.transform.localScale = AttackRange * Vector3.one;
+
                 obj.transform.SetParent(transform, false);
+                obj.transform.position = PlayerMove.position;
+                obj.SetActive(true);
+
                 switch (i)
                 {
-                    case 0: obj.transform.position = PlayerMove.position + 2* Vector3.right;break;
-                    case 1: obj.transform.position = PlayerMove.position - 2* Vector3.right;
-                        obj.GetComponent<SpriteRenderer>().flipX = true; break;
-                    case 3: obj.transform.position = PlayerMove.position + new Vector3(2, 4, 0); break;
+                    case 0: obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(1000 * AttackSpeed, 0), ForceMode2D.Force);break;
+                    case 1: obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1000 * AttackSpeed, 0), ForceMode2D.Force);
+                            obj.GetComponent<SpriteRenderer>().flipX = true; break;
+                    case 2: obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1000 * AttackSpeed), ForceMode2D.Force);
+                        obj.transform.rotation = Quaternion.Euler(0, 60, 90); break;
+                    case 3: obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1000 * AttackSpeed), ForceMode2D.Force);
+                        obj.transform.rotation = Quaternion.Euler(0, -60, -90); break;
                     default:
                         Debug.Log("whip");break;
                     
                 }
             }
-            yield return new WaitForSeconds(CoolDownTime + LastTime);
+            yield return new WaitForSeconds(CoolDownTime);
         }
     }
 
@@ -35,15 +42,15 @@ public class WhipSpawner : WeaponSpawner
         {
             default:
                 break;
-            case 1: WeaponNum++; break;
-            case 2: WeaponNum++; break;
-            case 3: WeaponNum++; break;
+            case 2: 
+            case 3: 
             case 4: WeaponNum++; break;
-            case 5: WeaponNum++; break;
-            case 6: WeaponNum++; break;
-            case 7: WeaponNum++; break;
-            case 8: WeaponNum++; break;
-            case 9: WeaponNum++; break;
+            case 5: 
+            case 6: AttackSpeed *= 1.4f; break;
+            case 7: 
+            case 8: AttackRange *= 0.5f; break;
+            case 9: AttackPower += 10; break;
         }
+        ReStartWeapon();
     }
 }
