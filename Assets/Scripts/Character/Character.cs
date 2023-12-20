@@ -6,40 +6,33 @@ public abstract class Character : MonoBehaviour
 {
 
     [SerializeField] CharacterData characterData;
-    Sprite sprite;
-    RuntimeAnimatorController controller;
-    Animator _animator;
-    int hp;
-    int attackPower;
-    int defencePower;
-    int moveSpeed;
-
-
-    protected virtual void Initialize()
+    protected Animator Anim { get; private set; }
+    protected Sprite Sprite { get; private set; }
+    public int HP { get; set;}
+    public int AttackPower { get; set; }
+    public int DefendencePower { get; set; } = 0;
+    public float MoveSpeed { get; set; } = 5f;
+    public float DamageBuff { get; set; } = 1f;
+    public virtual void Initialize()
     {
-        _animator = GetComponent<Animator>();
-        hp = characterData.HealthPoint;
-        attackPower = characterData.AttackPower;
-        defencePower = characterData.DefencePower;
-        moveSpeed = characterData.MoveSpeed;
+        Anim = GetComponent<Animator>();
+        HP = characterData.HealthPoint;
+        AttackPower = characterData.AttackPower;
+        DefendencePower = characterData.DefencePower;
+        MoveSpeed = characterData.MoveSpeed;
     }
-    public Animator Anim => _animator;
-    public Sprite Sprite => sprite;
-    public int HP => hp;
-    public int AttackPower => attackPower;
-    public int DefencePower => defencePower;
-    public int MoveSpeed => moveSpeed;
+
 
     public virtual void GetHurt(int damage)
     {
-        if (hp <= damage)
+        if (HP + DefendencePower < damage)
         {
-            hp = 0;
+            HP = 0;
             StartCoroutine(Die());
         }
         else
         {
-            hp -= damage;
+            HP -= damage;
         }
 
     }

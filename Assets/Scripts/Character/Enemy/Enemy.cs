@@ -10,10 +10,6 @@ public class Enemy : Character
 
     SpriteRenderer spriteRenderer;
 
-
-
-    //bool isDead = false;
-
     void Awake()
     {
         Initialize();
@@ -42,7 +38,7 @@ public class Enemy : Character
     {
         if (collision.tag == "Player")
         {
-            collision.GetComponent<Player>().HP -= AttackPower;
+            collision.GetComponent<Player>().GetHurt(AttackPower);
         }
 
     }

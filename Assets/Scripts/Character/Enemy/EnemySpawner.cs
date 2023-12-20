@@ -53,11 +53,11 @@ public class EnemySpawner : MonoBehaviour
 
     int GetEnemyStage()
     {
-        if (gameTime < 2f)
+        if (gameTime < 1f)
             return 1;
-        else if (gameTime > 2f && gameTime < 3f)
+        else if (gameTime > 1f && gameTime < 2f)
             return 2;
-        else if (gameTime > 3f && gameTime < 4f)
+        else if (gameTime > 2f && gameTime < 3f)
             return 3;
         else
             return 4;

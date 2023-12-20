@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     protected float LastTime { get; private set; }
 
     private Transform player;
-    public Transform Player => player;
+    public Transform PlayerMove => player;
     void OnEnable()
     {
         StartCoroutine(StartDestroy());
@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        player = PlayerMove.Instance.transform;
+        player = global::PlayerMove.Instance.transform;
     }
     public void SetParameters(WeaponData weaponData, int attackPower, float cooldownTime, float lastTime, float attackSpeed)
     {
@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            collision.GetComponent<Enemy>().GetHurt(AttackPower);
+            collision.GetComponent<Enemy>().GetHurt((int)Mathf.Ceil(AttackPower * Player.Instance.DamageBuff));
         }
     }
     protected virtual IEnumerator StartDestroy()

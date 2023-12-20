@@ -12,7 +12,7 @@ public class CrystalPicker : MonoBehaviour
         if(collision.tag == "Props")
         {
             int exp = collision.GetComponent<Crystal>().Exp;
-            player.PlayerExp += exp;
+            player.GetExp(exp * (int)player.ExpBuff);
 
             ObjectPool.ReturnObject(collision.GetComponent<Crystal>().GetCrystalType(), collision.gameObject);
             collision.gameObject.SetActive(false);

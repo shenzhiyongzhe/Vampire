@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] GameObject pauseWindows;
     private InputController inputController;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -27,7 +26,6 @@ public class PlayerMove : MonoBehaviour
         instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         move = inputController.Player.Move.ReadValue<Vector2>();
@@ -59,8 +57,5 @@ public class PlayerMove : MonoBehaviour
     {
         inputController.Player.Disable(); 
     }
-
-    
-
 
 }

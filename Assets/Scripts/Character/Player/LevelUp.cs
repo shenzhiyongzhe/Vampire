@@ -58,7 +58,7 @@ public class LevelUp : MonoBehaviour
         List<string> isDuplictated = new();
         foreach (var item in weaponSlots)
         {
-            if(Random.value > 0.01f)
+            if(Random.value > 0.5f)
             {
                 WeaponData weapon;
                 int level = 1;
@@ -87,7 +87,7 @@ public class LevelUp : MonoBehaviour
                 int level = 1;
                 do
                     accessory = ItemAssets.Instance.GetAccessoryData(GetRandomAccessory());
-                while (isDuplictated.Contains(accessory.AccessoryName.ToString()) && (!Inventory.AccessoryInventory.ContainsKey(accessory.AccessoryName) || Inventory.AccessoryInventory[accessory.AccessoryName] < 6));
+                while (isDuplictated.Contains(accessory.AccessoryName.ToString()) || (Inventory.AccessoryInventory.ContainsKey(accessory.AccessoryName) && Inventory.AccessoryInventory[accessory.AccessoryName] >= 6));
                 isDuplictated.Add(accessory.AccessoryName.ToString());
                 item.weaponIcon.sprite = accessory.AccessorySprite;
                 item.weaponName.text=accessory.AccessoryName.ToString();

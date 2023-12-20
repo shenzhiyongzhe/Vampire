@@ -1,51 +1,84 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    [SerializeField] private int _HP;
     [SerializeField] Slider expBar;
+    [SerializeField] GameObject pauseWindows;
+
     LevelUp levelUp;
 
-    int playerLv = 0;
-    int _playerExp = 1;
-    int levelUpExp = 30;
-    public int HP
-    {
-        get { return _HP; }
-        set { _HP = value; }
-    }
-
-    public int LvUpExp => levelUpExp;
+    public int NextLvExp { get; private set; } = 50;
+    public int CurExp { get; private set; } = 0;
     public int PlayerLv { get; set; } = 0;
-
+    public float PlayerLuck { get; private set; } = 0.3f;
+    public float CoolDown { get; private set; } = 1f;
+    public float ExpBuff { get; private set; } = 1f;
     public static Player Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
-        levelUpExp = playerLv * 10 + 30;
         levelUp = GetComponent<LevelUp>();
     }
 
-    public int PlayerExp
+    public void GetExp(int exp)
     {
-        get { return _playerExp; }
-        set 
-        { 
-            if(value >= levelUpExp)
-            {
-                _playerExp = 0;
-                levelUp.OnLevelUp();
-            }
-            else
-            {
-                _playerExp = value; 
-            }
-            expBar.value = (float)PlayerExp / LvUpExp;
+        if (exp + CurExp >= NextLvExp)
+        {
+            CurExp = 0;
+            levelUp.OnLevelUp();
+            NextLevelExp();
         }
+        else
+            CurExp += exp;
+        expBar.value = (float)CurExp / NextLvExp;
     }
 
+    void NextLevelExp()
+    {
+        NextLvExp = PlayerLv * 50 + 50;
+    }
 
+    public override IEnumerator Die()
+    {
+        Anim.SetBool("isDead", true);
+        pauseWindows.SetActive(true);
+        Time.timeScale = 0f;
+        yield return null;
+    }
 
+    public void IncreaseLuck(float percent)
+    {
+        PlayerLuck *= (1 + percent);
+    }
+
+    public void IncreaseAttackPower(float percent)
+    {
+        AttackPower = (int)Mathf.Ceil(AttackPower * (1 + percent));
+    }
+    public void IncreaseDef(int def)
+    {
+        DefendencePower += def;
+    }
+
+    public void IncreaseMoveSpeed(float percent)
+    {
+        MoveSpeed *= (1 + percent);
+    }
+
+    public void IncreaseExp(float percent)
+    {
+        ExpBuff += percent;
+    }
+
+    public void IncreaseDamage(float percent)
+    {
+        DamageBuff *= (1 + percent);
+    }
+    public void DecreaseCoolDownTime(float percent)
+    {
+        CoolDown *= (1 - percent);
+    }
 }

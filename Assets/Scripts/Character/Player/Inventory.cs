@@ -109,7 +109,7 @@ public class Inventory : MonoBehaviour
         {
             accessoryInventory.Add(accessoryType, 1);
         }
-
+        Accessory.IncreaseAttribute(accessoryType);
         ShowInventory() ;
     }
     private void ShowInventory()

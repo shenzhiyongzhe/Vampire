@@ -8,6 +8,7 @@ public class GM : MonoBehaviour
 {
     LevelUp player;
     TMP_Dropdown weaponDropdown;
+    TMP_Dropdown accessoryDropdown;
     public void AddEnemy()
     {
         EnemySpawner.Instance.SpawnEnemy(CharacterData.CharacterType.FlyingEye);
@@ -29,6 +30,22 @@ public class GM : MonoBehaviour
         }
     }
 
+    public void AccessoryUpgrade()
+    {
+        accessoryDropdown = GetComponent<TMP_Dropdown>();
+        string value = accessoryDropdown.options[accessoryDropdown.value].text;
+        switch (value)
+        {
+            default:
+                break;
+            case "Armor": Inventory.Instance.AddAccessory(AccessoryData.AccessoryType.Armor); break;
+            case "Clover": Inventory.Instance.AddAccessory(AccessoryData.AccessoryType.Clover); break;
+            case "Crown": Inventory.Instance.AddAccessory(AccessoryData.AccessoryType.Crown); break;
+            case "EmptyTome": Inventory.Instance.AddAccessory(AccessoryData.AccessoryType.EmptyTome); break;
+            case "Spinach": Inventory.Instance.AddAccessory(AccessoryData.AccessoryType.Spinach); break;
+            case "Wings": Inventory.Instance.AddAccessory(AccessoryData.AccessoryType.Wings); break;
+        }
+    }
     public void PlayerLvUp()
     {
         player = GameObject.FindWithTag("Player").GetComponent<LevelUp>();
