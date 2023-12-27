@@ -5,9 +5,9 @@ using UnityEngine;
 public abstract class WeaponSpawner : MonoBehaviour
 {
     [SerializeField] private WeaponData weaponData;
-    Transform player;
 
-    public Transform PlayerMove => player;
+    public  PlayerMove PlayerMoveIns { get; private set; }
+    public EnemySpawner EnemySpawnerIns { get; private set; }
     public float AttackSpeed { get; set; }
     public int AttackPower { get; set; }
     public float LastTime { get; set; }
@@ -16,14 +16,15 @@ public abstract class WeaponSpawner : MonoBehaviour
     public int WeaponNum { get; set;}
     public int WeaponLevel { get; set;}
 
-
+    public bool isActive { get; set; } = false;
     private void Awake()
     {
         Initialize();
     }
     private void Start()
     {
-        player = global::PlayerMove.Instance.transform;
+        PlayerMoveIns = PlayerMove.Instance;
+        EnemySpawnerIns = EnemySpawner.Instance;
     }
     void Initialize()
     {

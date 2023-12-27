@@ -63,10 +63,10 @@ public class EnemySpawner : MonoBehaviour
             return 4;
     }
 
-    public Vector3 GetRandomPos()
+    public GameObject GetRandomPos()
     {
-        if (activeEnemyList.Count == 0) return Vector3.zero;
-        return activeEnemyList[(int)Mathf.Floor(Random.Range(0, activeEnemyList.Count))].transform.position;
+        if (activeEnemyList.Count == 0) return null;
+        return activeEnemyList[(int)Mathf.Floor(Random.Range(0, activeEnemyList.Count))];
     }
     public GameObject GetNearestPos()
     {

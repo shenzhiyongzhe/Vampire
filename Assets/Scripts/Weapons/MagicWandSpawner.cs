@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -6,17 +7,17 @@ public class MagicWandSpawner : WeaponSpawner
 {
     protected override IEnumerator StartAttack()
     {
-        EnemySpawner enemySpawner = EnemySpawner.Instance;
         while (true)
         {
             for (int i = 0; i < WeaponNum; i++)
             {
-                if (enemySpawner.activeEnemyList.Count == 0) break;
+                if (EnemySpawnerIns.activeEnemyList.Count == 0) break;
                 GameObject obj = SpawnWeapon();
-                obj.transform.position = PlayerMove.position;
+                obj.transform.position = PlayerMoveIns.transform.position;
                 obj.SetActive(true);
-                
+                obj.GetComponent<Rigidbody2D>().AddForce(100 * (EnemySpawnerIns.GetNearestPos().transform.position - PlayerMoveIns.transform.position), ForceMode2D.Force);
             }
+
             yield return new WaitForSeconds(CoolDownTime);
         }
     }

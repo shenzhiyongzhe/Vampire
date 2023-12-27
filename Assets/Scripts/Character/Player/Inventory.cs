@@ -88,7 +88,6 @@ public class Inventory : MonoBehaviour
         {
             spawner.UpgradeWeapon();
             weaponInventory[weaponType] = spawner.WeaponLevel;
-            Debug.Log($" {weaponType}: {spawner.WeaponLevel}, {weaponInventory[weaponType]}");
         }
         else
         {

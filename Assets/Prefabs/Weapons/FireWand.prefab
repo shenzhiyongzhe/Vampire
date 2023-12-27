@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2846470919766020775}
   m_Layer: 11
   m_Name: FireWand
-  m_TagString: Props
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,4 +171,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7343eed8e00d2414fad0e60e1136a93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPower: 11

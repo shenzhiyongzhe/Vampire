@@ -10,8 +10,9 @@ public class Weapon : MonoBehaviour
     protected float CoolDownTime { get; private set; }
     protected float LastTime { get; private set; }
 
-    private Transform player;
-    public Transform PlayerMove => player;
+    public  PlayerMove PlayerMoveIns {get; private set; }
+    public EnemySpawner EnemySpawnerIns { get; private set; }
+
     void OnEnable()
     {
         StartCoroutine(StartDestroy());
@@ -19,7 +20,8 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        player = global::PlayerMove.Instance.transform;
+        PlayerMoveIns = PlayerMove.Instance;
+        EnemySpawnerIns = EnemySpawner.Instance;
     }
     public void SetParameters(WeaponData weaponData, int attackPower, float cooldownTime, float lastTime, float attackSpeed)
     {
@@ -31,13 +33,6 @@ public class Weapon : MonoBehaviour
     }   
     //IEnumerator 
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Enemy")
-        {
-            collision.GetComponent<Enemy>().GetHurt((int)Mathf.Ceil(AttackPower * Player.Instance.DamageBuff));
-        }
-    }
     protected virtual IEnumerator StartDestroy()
     {
         yield return new WaitForSeconds(LastTime);

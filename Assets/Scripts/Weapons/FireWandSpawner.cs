@@ -13,7 +13,7 @@ public class FireWandSpawner : WeaponSpawner
 
             if (enemySpawner.activeEnemyList.Count > 0)
             {
-                Vector2 destination = (enemySpawner.GetNearestPos().transform.position - transform.position).normalized;
+                Vector2 destination = enemySpawner.GetRandomPos().transform.position;
                 float newSpreadAngle = 0f;
 
                 for (int i = 0; i < WeaponNum; ++i)
@@ -21,7 +21,7 @@ public class FireWandSpawner : WeaponSpawner
                     if (i % 2 == 1)
                         newSpreadAngle += spreadAngle;
 
-                    SpawnWeapon(newSpreadAngle, destination);
+                    SpawnWeapon(destination);
 
                     newSpreadAngle *= -1;
                 }
@@ -31,29 +31,16 @@ public class FireWandSpawner : WeaponSpawner
 
        
     }
-    public void SpawnWeapon(float spreadAngle, Vector2 destination)
+    public void SpawnWeapon(Vector2 destination)
     {
         GameObject obj = ObjectPool.GetObject(GetWeaponType());
-        obj.transform.position = PlayerMove.position;
-        Vector2 destVector;
-        float angle;
+        obj.transform.position = PlayerMoveIns.transform.position;
+        float angle = Mathf.Rad2Deg * Mathf.Atan2(destination.y - obj.transform.position.y, destination.x - obj.transform.position.x);
 
-        if (spreadAngle != 0f)
-        {
-            destination.x = destination.x * Mathf.Cos(spreadAngle / 180f * Mathf.PI) - destination.y * Mathf.Sin(spreadAngle / 180f * Mathf.PI);
-            destination.y = destination.x * Mathf.Sin(spreadAngle / 180f * Mathf.PI) + destination.y * Mathf.Cos(spreadAngle / 180f * Mathf.PI);
-        }
-        destVector = destination.normalized;
-
-        if (destVector.y < 0)
-            angle = -Vector2.Angle(destVector, new Vector2(1, 0));
-        else
-            angle = Vector2.Angle(destVector, new Vector2(1, 0));
-
-        obj.transform.rotation = Quaternion.Euler(0, 0, angle - 8.5f);
+        obj.transform.rotation = Quaternion.Euler(0, 0, angle);
         obj.GetComponent<Weapon>().SetParameters(GetWeaponData(), AttackPower, CoolDownTime, LastTime, AttackSpeed);
         obj.SetActive(true);
-        obj.GetComponent<Rigidbody2D>().AddForce(3000f * AttackSpeed * (destination - (Vector2)PlayerMove.position).normalized, ForceMode2D.Force);
+        obj.GetComponent<Rigidbody2D>().AddForce(200f * AttackSpeed * (destination - (Vector2)PlayerMoveIns.transform.position).normalized, ForceMode2D.Force);
 
     }
 

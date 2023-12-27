@@ -14,7 +14,7 @@ public class LightningSpawner : WeaponSpawner
             {
                 if(enemySpawner.activeEnemyList.Count == 0) { break; }
                 GameObject obj = SpawnWeapon();
-                obj.transform.position = enemySpawner.GetRandomPos();
+                obj.transform.position = enemySpawner.GetRandomPos().transform.position;
                 obj.transform.localScale = AttackRange * Vector3.one;
                 obj.SetActive(true);
             }

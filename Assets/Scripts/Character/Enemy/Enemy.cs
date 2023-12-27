@@ -36,9 +36,14 @@ public class Enemy : Character
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Player>().GetHurt(AttackPower);
+        }
+
+        if (collision.CompareTag("Weapon"))
+        {
+            GetHurt((int)Mathf.Ceil(collision.GetComponent<Weapon>().AttackPower * Player.Instance.DamageBuff));
         }
 
     }

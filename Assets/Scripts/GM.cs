@@ -27,6 +27,7 @@ public class GM : MonoBehaviour
             case "Whip": Inventory.Instance.AddWeapon(WeaponData.WeaponType.Whip); break;
             case "Lightning": Inventory.Instance.AddWeapon(WeaponData.WeaponType.Lightning); break;
             case "MagicWand": Inventory.Instance.AddWeapon(WeaponData.WeaponType.MagicWand); break;
+            case "FireWand": Inventory.Instance.AddWeapon(WeaponData.WeaponType.FireWand); break;
         }
     }
 

@@ -11,8 +11,9 @@ public class BibleSpawner : WeaponSpawner
             for(int i = 0; i < WeaponNum; i++)
             {
                 GameObject obj = SpawnWeapon();
+                obj.transform.SetParent(transform);
                 obj.transform.position = new Vector3(Mathf.Cos(2 * Mathf.PI / WeaponNum * i) * AttackRange,
-                                                     Mathf.Sin(2 * Mathf.PI / WeaponNum * i) * AttackRange, 0) + PlayerMove.position;
+                                                     Mathf.Sin(2 * Mathf.PI / WeaponNum * i) * AttackRange, 0) + PlayerMoveIns.transform.position;
                 obj.SetActive(true);
             }
             yield return new WaitForSeconds(CoolDownTime + LastTime);      

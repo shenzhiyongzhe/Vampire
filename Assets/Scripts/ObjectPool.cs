@@ -36,11 +36,6 @@ public class ObjectPool : MonoBehaviour
 
     [SerializeField] GameObject DamageText;
 
-    [SerializeField] GameObject weaponPool;
-    [SerializeField] GameObject crystalPool;
-    [SerializeField] GameObject enemyPool;
-    [SerializeField] GameObject meleeWeapon;
-    [SerializeField] GameObject damageTxtPool;
     private void Awake()
     {
         instance = this;
@@ -107,47 +102,47 @@ public class ObjectPool : MonoBehaviour
         switch (type)
         {
             case CharacterData.CharacterType.FlyingEye:
-                newObject = Instantiate(instance.flyingEyePrefab, instance.enemyPool.transform);
+                newObject = Instantiate(instance.flyingEyePrefab, instance.transform);
                 break;
             case CharacterData.CharacterType.Goblin:
                 newObject = Instantiate(instance.goblinPrefab);
                 break;
             case CharacterData.CharacterType.Mushroom:
-                newObject = Instantiate(instance.mushroomPrefab, instance.enemyPool.transform);
+                newObject = Instantiate(instance.mushroomPrefab, instance.transform);
                 break;
             case CharacterData.CharacterType.Skeleton:
                 newObject = Instantiate(instance.skeletonPrefab);
                 break;
 
             case WeaponData.WeaponType.Whip:
-                newObject = Instantiate(instance.whipPrefab, instance.weaponPool.transform);
+                newObject = Instantiate(instance.whipPrefab, instance.transform);
                 break;
             case WeaponData.WeaponType.Bible:
-                newObject = Instantiate(instance.biblePrefab, instance.meleeWeapon.transform);
+                newObject = Instantiate(instance.biblePrefab, instance.transform);
                 break;
             case WeaponData.WeaponType.Axe:
-                newObject = Instantiate(instance.axePrefab, instance.weaponPool.transform);
+                newObject = Instantiate(instance.axePrefab, instance.transform);
                 break;
             case WeaponData.WeaponType.FireWand:
-                newObject = Instantiate(instance.fireWandPrefab, instance.weaponPool.transform);
+                newObject = Instantiate(instance.fireWandPrefab, instance.transform);
                 break;
             case WeaponData.WeaponType.MagicWand:
-                newObject = Instantiate(instance.magicWandPrefab, instance.weaponPool.transform);
+                newObject = Instantiate(instance.magicWandPrefab, instance.transform);
                 break;
             case WeaponData.WeaponType.Lightning:
-                newObject = Instantiate(instance.lightningPrefab, instance.weaponPool.transform);
+                newObject = Instantiate(instance.lightningPrefab, instance.transform);
                 break;
 
 
             case CrystalData.CrystalType.BlueCrystal:
-                newObject = Instantiate(instance.blueCrystalPrefab, instance.crystalPool.transform); break;
+                newObject = Instantiate(instance.blueCrystalPrefab, instance.transform); break;
             case CrystalData.CrystalType.GreenCrystal:
-                newObject = Instantiate(instance.greenCrystalPrefab, instance.crystalPool.transform); break;
+                newObject = Instantiate(instance.greenCrystalPrefab, instance.transform); break;
             case CrystalData.CrystalType.RedCrystal:
-                newObject = Instantiate(instance.redCrystalPrefab, instance.crystalPool.transform); break;
+                newObject = Instantiate(instance.redCrystalPrefab, instance.transform); break;
 
             case "damage":
-                newObject = Instantiate(instance.DamageText, instance.damageTxtPool.transform); break;
+                newObject = Instantiate(instance.DamageText, instance.transform); break;
             default:newObject = null;
                 break;
         }
