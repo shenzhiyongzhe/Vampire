@@ -6,7 +6,7 @@ public class WeaponData : ScriptableObject
 {
     public enum WeaponType
     {
-         Axe, Bible, Lightning, MagicWand, FireWand, Whip, 
+         Axe, Bible, Lightning, MagicWand, FireWand, Whip, Sword, SnowFlower
     }
 
     [SerializeField] WeaponType weaponName;

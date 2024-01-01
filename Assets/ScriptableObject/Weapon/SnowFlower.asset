@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e930eff1da31b0343b562b7642037ea0, type: 3}
+  m_Name: SnowFlower
+  m_EditorClassIdentifier: 
+  weaponName: 7
+  attackPower: 3
+  weaponNum: 5
+  attackSpeed: 1
+  attackRange: 1
+  cooldownTime: 6
+  lastTime: 5
+  weaponSprite: {fileID: 21300000, guid: d68b4b9425e6d3c42b278cd749fa0ac0, type: 3}
+  description: "\u5728\u5730\u4E0A\u7559\u4E0B\u4E00\u7247\u96EA\u82B1\uFF0C\u4F7F\u654C\u4EBA\u51CF\u901F"

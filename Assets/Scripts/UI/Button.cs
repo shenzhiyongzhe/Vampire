@@ -20,4 +20,10 @@ public class Button : MonoBehaviour
         Time.timeScale = 1.0f;
         transform.parent.gameObject.SetActive(false);
     }
+
+    public void ReStartGame()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("InGame");
+    }
 }

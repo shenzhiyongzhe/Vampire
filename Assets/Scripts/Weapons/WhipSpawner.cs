@@ -19,11 +19,11 @@ public class WhipSpawner : WeaponSpawner
 
                 switch (i)
                 {
-                    case 0: obj.GetComponent<Rigidbody2D>().AddForce(direction.lastDirection.x > 0 ? 1000 * AttackSpeed * Vector2.right : 1000 * AttackSpeed * Vector2.left, ForceMode2D.Force);
-                        if(direction.lastDirection.x < 0) obj.GetComponent<SpriteRenderer>().flipX = true; break;
-                    case 1: obj.GetComponent<Rigidbody2D>().AddForce(direction.lastDirection.x > 0 ? 1000 * AttackSpeed * Vector2.left: 1000 * AttackSpeed * Vector2.right, ForceMode2D.Force);
-                         if(direction.lastDirection.x > 0) obj.GetComponent<SpriteRenderer>().flipX = true;
-                         else if(direction.lastDirection.x < 0) obj.GetComponent<SpriteRenderer>().flipX = false; break;
+                    case 0: obj.GetComponent<Rigidbody2D>().AddForce(direction.IsFacingRight ? 1000 * AttackSpeed * Vector2.right : 1000 * AttackSpeed * Vector2.left, ForceMode2D.Force);
+                        if(!direction.IsFacingRight) obj.GetComponent<SpriteRenderer>().flipX = true; break;
+                    case 1: obj.GetComponent<Rigidbody2D>().AddForce(direction.IsFacingRight ? 1000 * AttackSpeed * Vector2.left: 1000 * AttackSpeed * Vector2.right, ForceMode2D.Force);
+                         if(direction.IsFacingRight) obj.GetComponent<SpriteRenderer>().flipX = true;
+                         else obj.GetComponent<SpriteRenderer>().flipX = false; break;
                     case 2: obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1000 * AttackSpeed), ForceMode2D.Force);
                         obj.transform.rotation = Quaternion.Euler(0, 60, 90); break;
                     case 3: obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1000 * AttackSpeed), ForceMode2D.Force);

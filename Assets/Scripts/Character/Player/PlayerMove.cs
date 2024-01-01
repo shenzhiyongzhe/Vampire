@@ -1,47 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
-    private InputController inputController;
     private Animator animator;
+    private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] Player player;
+    private float moveSpeed;
 
-    public float moveSpeed;
+    [SerializeField] GameObject resumeWindow;
+    [SerializeField] GameObject gmMenu;
 
-    Vector3 move;
-    public Vector3 moveDirection => move;
-    public Vector2 lastDirection;
+    Vector3 moveInput;
 
-    private static PlayerMove instance;
-    public static PlayerMove Instance => instance;
 
-    void Awake()
+    public bool IsFacingRight { get; private set; } = true;
+
+    public static PlayerMove Instance { get; private set; }
+
+
+    private void Awake()
     {
-        inputController = new InputController();
+        Instance = this;
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        lastDirection = Vector2.right;
-        instance = this;
+        moveSpeed = player.MoveSpeed;
     }
 
-    void Update()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        move = inputController.Player.Move.ReadValue<Vector2>();
+        moveInput = context.ReadValue<Vector2>();
 
-        transform.position += move * moveSpeed * Time.deltaTime;
-        if(move.x != 0 || move.y != 0)
+        if (!animator.GetBool("isDead"))
+            rb.velocity = moveSpeed * moveInput;
+        if (moveInput.x != 0 || moveInput.y != 0)
         {
             animator.SetBool("isMove", true);
-            if(move.x > 0)
+            if (moveInput.x > 0)
             {
                 spriteRenderer.flipX = false;
+                IsFacingRight = true;
             }
-            else {
+            else if (moveInput.x < 0)
+            {
                 spriteRenderer.flipX = true;
+                IsFacingRight = false;
             }
-            lastDirection = move;
         }
         else
         {
@@ -49,13 +57,25 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    public void OpenQuitMenu()
     {
-        inputController.Player.Enable();
+        if (resumeWindow.activeSelf)
+        {
+            resumeWindow.SetActive(false);
+        }
+        else
+        {
+            resumeWindow.SetActive(true);
+        }
     }
-    private void OnDisable()
+
+    public void OpenGM()
     {
-        inputController.Player.Disable(); 
+        if (gmMenu.activeSelf)
+        {
+            gmMenu.SetActive(false);
+        }
+        else { gmMenu.SetActive(true); }
     }
 
 }

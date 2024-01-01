@@ -16,7 +16,6 @@ public abstract class WeaponSpawner : MonoBehaviour
     public int WeaponNum { get; set;}
     public int WeaponLevel { get; set;}
 
-    public bool isActive { get; set; } = false;
     private void Awake()
     {
         Initialize();

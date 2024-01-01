@@ -9,6 +9,8 @@ public class ItemAssets : MonoBehaviour
     [SerializeField] WeaponData magicWand;
     [SerializeField] WeaponData lightning;
     [SerializeField] WeaponData fireWand;
+    [SerializeField] WeaponData sword;
+    [SerializeField] WeaponData snowFlower;
 
     [SerializeField] AccessoryData armor;
     [SerializeField] AccessoryData clover;
@@ -35,6 +37,8 @@ public class ItemAssets : MonoBehaviour
             WeaponData.WeaponType.MagicWand => magicWand,
             WeaponData.WeaponType.FireWand => fireWand,
             WeaponData.WeaponType.Whip => whip,
+            WeaponData.WeaponType.Sword => sword,
+            WeaponData.WeaponType.SnowFlower => snowFlower,
             _ => axe,
         };
     }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Player : Character
 {
     [SerializeField] Slider expBar;
-    [SerializeField] GameObject pauseWindows;
+    [SerializeField] GameObject restartWindows;
 
     LevelUp levelUp;
 
@@ -19,6 +19,7 @@ public class Player : Character
 
     private void Awake()
     {
+        Initialize();
         Instance = this;
         levelUp = GetComponent<LevelUp>();
     }
@@ -44,9 +45,17 @@ public class Player : Character
     public override IEnumerator Die()
     {
         Anim.SetBool("isDead", true);
-        pauseWindows.SetActive(true);
+        yield return new WaitForSeconds(1.2f);
+        restartWindows.SetActive(true);
         Time.timeScale = 0f;
-        yield return null;
+    }
+
+    public override void GetHurt(int damage)
+    {
+        base.GetHurt(damage);
+        GameObject particle = ObjectPool.GetObject("Blood");
+        particle.transform.position = transform.position;
+        particle.SetActive(true);
     }
 
     public void IncreaseLuck(float percent)

@@ -35,41 +35,7 @@ public class MapSpawn : MonoBehaviour
 
     void ChunkChecker()
     {
-        if (!currentChunk)
-        {
-            return;
-        }
-        if(playerMove.moveDirection.x > 0 && playerMove.moveDirection.y == 0) // right
-        {
-            if(!Physics2D.OverlapCircle(currentChunk.transform.Find("Right").position, checkRadius, terrainMask)){
-                noTerrainPosition = currentChunk.transform.Find("Right").position;
-                SpawnChunk();
-            }
-        }
-        else if (playerMove.moveDirection.x < 0 && playerMove.moveDirection.y == 0) //left
-        {
-            if (!Physics2D.OverlapCircle(currentChunk.transform.Find("Left").position, checkRadius, terrainMask))
-            {
-                noTerrainPosition = currentChunk.transform.Find("Left").position;
-                SpawnChunk();
-            }
-        }
-        else if (playerMove.moveDirection.x == 0 && playerMove.moveDirection.y > 0) //up
-        {
-            if (!Physics2D.OverlapCircle(currentChunk.transform.Find("Up").position, checkRadius, terrainMask))
-            {
-                noTerrainPosition = currentChunk.transform.Find("Up").position;
-                SpawnChunk();
-            }
-        }
-        else if (playerMove.moveDirection.x == 0 && playerMove.moveDirection.y < 0) //down
-        {
-            if (!Physics2D.OverlapCircle(currentChunk.transform.Find("Down").position, checkRadius, terrainMask))
-            {
-                noTerrainPosition = currentChunk.transform.Find("Down").position;
-                SpawnChunk();
-            }
-        }
+
 
     }
 

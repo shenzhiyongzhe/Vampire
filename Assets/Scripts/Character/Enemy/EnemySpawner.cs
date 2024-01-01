@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
         player = PlayerMove.Instance.transform;
         gameTime = Mathf.FloorToInt(GameTime.GameDuration / 60f);
 
-        //StartCoroutine(LoopSpawnEnemy());
+        StartCoroutine(LoopSpawnEnemy());
         StartCoroutine(ListChecker());
     }
     public void SpawnEnemy(CharacterData.CharacterType enemyType)

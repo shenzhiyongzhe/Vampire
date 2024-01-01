@@ -77,6 +77,12 @@ public class Inventory : MonoBehaviour
             case WeaponData.WeaponType.Whip:
                 spawner = GetComponent<WhipSpawner>();
                 break;
+            case WeaponData.WeaponType.Sword:
+                spawner = GetComponent<SwordSpawner>();
+                break;
+            case WeaponData.WeaponType.SnowFlower:
+                spawner = GetComponent<SnowFlowerSpawner>();
+                break;
             default:
                 Debug.Log("not found this weapon");
                 spawner = bible;

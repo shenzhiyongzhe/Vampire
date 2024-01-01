@@ -29,12 +29,15 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] GameObject fireWandPrefab;
     [SerializeField] GameObject magicWandPrefab;
     [SerializeField] GameObject lightningPrefab;
+    [SerializeField] GameObject swordPrefab;
+    [SerializeField] GameObject snowFlowerPrefab;
 
     [SerializeField] GameObject blueCrystalPrefab;
     [SerializeField] GameObject greenCrystalPrefab;
     [SerializeField] GameObject redCrystalPrefab;
 
     [SerializeField] GameObject DamageText;
+    [SerializeField] GameObject BloodVFX;
 
     private void Awake()
     {
@@ -132,6 +135,12 @@ public class ObjectPool : MonoBehaviour
             case WeaponData.WeaponType.Lightning:
                 newObject = Instantiate(instance.lightningPrefab, instance.transform);
                 break;
+            case WeaponData.WeaponType.Sword:
+                newObject = Instantiate(instance.swordPrefab, instance.transform);
+                break;
+            case WeaponData.WeaponType.SnowFlower:
+                newObject = Instantiate(instance.snowFlowerPrefab, instance.transform);
+                break;
 
 
             case CrystalData.CrystalType.BlueCrystal:
@@ -143,6 +152,9 @@ public class ObjectPool : MonoBehaviour
 
             case "damage":
                 newObject = Instantiate(instance.DamageText, instance.transform); break;
+            case "Blood":
+                newObject = Instantiate(instance.BloodVFX, Player.Instance.transform); break;
+
             default:newObject = null;
                 break;
         }
@@ -152,7 +164,7 @@ public class ObjectPool : MonoBehaviour
 
     public static GameObject GetObject<T>(T type)
     {
-        if (instance.poolDict[type.ToString()].Count > 0)
+        if (instance.poolDict.ContainsKey(type.ToString()) && instance.poolDict[type.ToString()].Count > 0)
         {
             return instance.poolDict[type.ToString()].Pop();
         }

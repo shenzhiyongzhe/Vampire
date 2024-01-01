@@ -95,4 +95,15 @@ public class Enemy : Character
 
         //}
     }
+
+    private IEnumerator Despeed()
+    {
+        MoveSpeed *= 0.2f;
+        yield return new WaitForSeconds(2f);
+        MoveSpeed *= 5f;
+    }
+    public void AddDebuff_Despeed()
+    {
+        StartCoroutine(Despeed());
+    }
 }

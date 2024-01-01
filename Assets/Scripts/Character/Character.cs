@@ -25,7 +25,7 @@ public abstract class Character : MonoBehaviour
 
     public virtual void GetHurt(int damage)
     {
-        if (HP + DefendencePower < damage)
+        if (HP + DefendencePower <= damage)
         {
             HP = 0;
             StartCoroutine(Die());
