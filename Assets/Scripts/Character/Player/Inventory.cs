@@ -55,6 +55,8 @@ public class Inventory : MonoBehaviour
 
     public void AddWeapon(WeaponData.WeaponType weaponType)
     {
+        if (weaponInventory.Count >= weaponSlots.Length) return;
+
         WeaponSpawner spawner;
 
         switch (weaponType)
@@ -106,6 +108,7 @@ public class Inventory : MonoBehaviour
 
     public void AddAccessory(AccessoryData.AccessoryType accessoryType)
     {
+        if (accessoryInventory.Count >= accessorySlots.Length) return;
         if (accessoryInventory.ContainsKey(accessoryType))
         {
             accessoryInventory[accessoryType]++;

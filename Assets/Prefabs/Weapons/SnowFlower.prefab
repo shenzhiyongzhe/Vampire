@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6312347027283211979}
   - component: {fileID: 7947018287204393095}
   - component: {fileID: 3524439702894042120}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: SnowFlower
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1788459413
+  m_SortingLayerID: 1436888585
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d68b4b9425e6d3c42b278cd749fa0ac0, type: 3}

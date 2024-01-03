@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1025454151078897976}
   - component: {fileID: 7341838896603611895}
   - component: {fileID: 2256624025710614276}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Sword
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1788459413
+  m_SortingLayerID: 1436888585
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -283727158, guid: 0f1c5fad2d3026f45999d86426cbd5ef, type: 3}

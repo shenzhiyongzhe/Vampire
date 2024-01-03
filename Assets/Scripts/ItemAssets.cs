@@ -18,6 +18,7 @@ public class ItemAssets : MonoBehaviour
     [SerializeField] AccessoryData emptyTome;
     [SerializeField] AccessoryData spinach;
     [SerializeField] AccessoryData wings;
+    [SerializeField] AccessoryData flightSpeed;
 
     static ItemAssets instance;
 
@@ -51,6 +52,7 @@ public class ItemAssets : MonoBehaviour
             AccessoryData.AccessoryType.EmptyTome => emptyTome,
             AccessoryData.AccessoryType.Spinach => spinach,
             AccessoryData.AccessoryType.Wings => wings,
+            AccessoryData.AccessoryType.FlightSpeed => flightSpeed,
             _ => armor,
         };
     }

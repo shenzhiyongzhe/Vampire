@@ -120,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5315419997323608177}
   - component: {fileID: 2192382053687254670}
+  - component: {fileID: 2317119151019769713}
   m_Layer: 6
   m_Name: Terrain Chunk
   m_TagString: Untagged
@@ -189,6 +190,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 20, y: 20}
   m_EdgeRadius: 0
+--- !u!114 &2317119151019769713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4930943952312675031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ffdafa9d9f5884bb9a954df972b2f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapChunk: {fileID: 4930943952312675031}
 --- !u!1 &8605477419289643482
 GameObject:
   m_ObjectHideFlags: 0

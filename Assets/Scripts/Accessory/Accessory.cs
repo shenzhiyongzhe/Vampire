@@ -15,6 +15,7 @@ public class Accessory : MonoBehaviour
             case AccessoryData.AccessoryType.EmptyTome: Player.Instance.DecreaseCoolDownTime(0.1f); break;
             case AccessoryData.AccessoryType.Spinach:Player.Instance.IncreaseDamage(0.1f); break;    
             case AccessoryData.AccessoryType.Wings: Player.Instance.IncreaseMoveSpeed(0.1f); break;
+            case AccessoryData.AccessoryType.FlightSpeed: Player.Instance.IncreaseFlightSpeed(0.3f); break;
         }
     }
 

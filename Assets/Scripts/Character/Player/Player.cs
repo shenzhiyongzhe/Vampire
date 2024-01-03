@@ -15,6 +15,8 @@ public class Player : Character
     public float PlayerLuck { get; private set; } = 0.3f;
     public float CoolDown { get; private set; } = 1f;
     public float ExpBuff { get; private set; } = 1f;
+
+    public float FlightSpeed { get; private set; } = 1f;
     public static Player Instance { get; private set; }
 
     private void Awake()
@@ -85,6 +87,11 @@ public class Player : Character
     public void IncreaseDamage(float percent)
     {
         DamageBuff *= (1 + percent);
+    }
+
+    public void IncreaseFlightSpeed(float percent)
+    {
+        FlightSpeed *= (1 + percent);
     }
     public void DecreaseCoolDownTime(float percent)
     {

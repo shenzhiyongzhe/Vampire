@@ -76,6 +76,7 @@ public class LevelUp : MonoBehaviour
                 item.btn.onClick.RemoveAllListeners();
                 item.btn.onClick.AddListener(delegate
                 {
+                    if((Inventory.WeaponInventory.Count < 6))
                     Inventory.Instance.AddWeapon(weapon.WeaponName);
                     levelUpWindow.gameObject.SetActive(false);
                     Time.timeScale = 1;
@@ -97,6 +98,7 @@ public class LevelUp : MonoBehaviour
                 item.btn.onClick.RemoveAllListeners();
                 item.btn.onClick.AddListener(delegate
                 {
+                    if(Inventory.AccessoryInventory.Count < 6)
                     Inventory.Instance.AddAccessory(accessory.AccessoryName);
                     levelUpWindow.gameObject.SetActive(false);
                     Time.timeScale = 1;

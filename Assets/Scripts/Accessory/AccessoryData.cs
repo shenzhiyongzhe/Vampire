@@ -11,7 +11,7 @@ public class AccessoryData : ScriptableObject
 
     public enum AccessoryType
     {
-        Spinach, Armor, EmptyTome, Wings, Clover, Crown
+        Spinach, Armor, EmptyTome, Wings, Clover, Crown, FlightSpeed
     }
 
     public AccessoryType AccessoryName => accessoryType;

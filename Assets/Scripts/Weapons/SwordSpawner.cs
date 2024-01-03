@@ -5,7 +5,7 @@ public class SwordSpawner : WeaponSpawner
 {
     public override void UpgradeWeapon()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("weaponNum++");
     }
 
     protected override IEnumerator StartAttack()
